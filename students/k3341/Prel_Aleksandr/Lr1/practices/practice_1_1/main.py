@@ -7,6 +7,7 @@ from .models import Author, AuthorInput, BookInput, BookRead, Genre, GenreInput
 
 def create_app() -> FastAPI:
     app = FastAPI(title="BookCrossing: practice 1.1")
+    # Это словари в памяти процесса: после перезапуска приложение снова получит исходные записи.
     authors = {1: Author(id=1, name="Jane Austen"), 2: Author(id=2, name="Lewis Carroll")}
     genres = {1: Genre(id=1, name="Novel"), 2: Genre(id=2, name="Fantasy")}
     books = {
@@ -18,10 +19,12 @@ def create_app() -> FastAPI:
         if book_id not in books:
             raise HTTPException(status_code=404, detail="Book not found")
         book = books[book_id]
+        # В хранилище находятся ID связей, а в ответ подставляются объекты автора и жанров.
         return BookRead(id=book_id, title=book.title, author=authors[book.author_id],
                         genres=[genres[genre_id] for genre_id in book.genre_ids])
 
     def validate_relations(book: BookInput) -> None:
+        # Тип int ещё не гарантирует существование объекта; ссылки проверяем отдельно.
         if book.author_id not in authors or any(value not in genres for value in book.genre_ids):
             raise HTTPException(status_code=404, detail="Author or genre not found")
 
@@ -44,6 +47,7 @@ def create_app() -> FastAPI:
     def update_book(book_id: int, data: BookInput) -> BookRead:
         book_response(book_id)
         validate_relations(data)
+        # PUT заменяет сохранённые данные книги целиком, в отличие от частичного PATCH итогового API.
         books[book_id] = data
         return book_response(book_id)
 
@@ -78,6 +82,7 @@ def create_app() -> FastAPI:
     @app.delete("/authors/{author_id}")
     def delete_author(author_id: int) -> dict[str, bool]:
         get_author(author_id)
+        # Иначе книги продолжили бы ссылаться на уже отсутствующего автора.
         if any(book.author_id == author_id for book in books.values()):
             raise HTTPException(status_code=409, detail="Author has books")
         del authors[author_id]

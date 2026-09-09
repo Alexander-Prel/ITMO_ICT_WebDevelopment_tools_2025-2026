@@ -55,6 +55,8 @@ def get_exchange_request(
     return ExchangeRequestService.get_by_id(session, request_id, current_user)
 
 
+# Для смены статуса есть отдельные действия: клиент не может прислать любой status в JSON.
+# Проверки участника, владельца и текущего состояния выполняет сервис.
 @router.patch("/{request_id}/accept", response_model=ExchangeRequestRead)
 def accept_exchange_request(
     request_id: int,

@@ -36,6 +36,7 @@ class BookService:
         q = q.strip() if q else None
         statement = select(Book).order_by(Book.id)
         if q:
+            # ilike ищет без учёта регистра, а % разрешает совпадение внутри названия или автора.
             statement = statement.where(or_(Book.title.ilike(f"%{q}%"), Book.author.ilike(f"%{q}%")))
         return list(session.exec(statement).all())
 
@@ -46,6 +47,7 @@ class BookService:
     @staticmethod
     def update(session: Session, book_id: int, data: BookUpdate, user: User) -> Book:
         book = get_book_or_404(session, book_id)
+        # Доступ к чтению карточки не даёт права её редактировать.
         ensure_book_creator(book, user)
 
         if data.isbn and data.isbn != book.isbn:
@@ -108,6 +110,7 @@ class BookService:
 
         # Повторное добавление того же жанра не создаёт вторую связь.
         if genre not in book.genres:
+            # ORM превратит изменение списка в запись таблицы book_genre_links.
             book.genres.append(genre)
             session.add(book)
             session.commit()

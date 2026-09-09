@@ -28,6 +28,7 @@ class AuthService:
         )
         session.add(user)
         session.commit()
+        # ID назначает база; после refresh его можно использовать в поле sub нового токена.
         session.refresh(user)
 
         # sub содержит ID пользователя, чтобы по токену определить автора следующих запросов.

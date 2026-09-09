@@ -12,6 +12,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
+# Ищем .env рядом с проектом, независимо от папки, из которой запущен Python.
 BASE_DIR = Path(__file__).resolve().parents[2]
 load_dotenv(BASE_DIR / ".env")
 
@@ -38,6 +39,7 @@ from sqlmodel import SQLModel, Session, create_engine
 from app.core.config import settings
 
 
+# Engine управляет подключениями; сессия ниже создаётся отдельно для каждого запроса.
 engine = create_engine(settings.database_url, echo=settings.sql_echo)
 
 
@@ -48,6 +50,7 @@ def init_db() -> None:
 
 def get_session():
     # FastAPI получает сессию через yield; после запроса with закроет её даже при ошибке.
+    # При закрытии незавершённая транзакция откатывается; успешные изменения commit делает сервис.
     with Session(engine) as session:
         yield session
 ```
@@ -120,10 +123,12 @@ config.set_main_option("sqlalchemy.url", settings.database_url.replace("%", "%%"
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+# Метаданные описывают желаемую схему; Alembic сравнивает её с БД при autogenerate/check.
 target_metadata = SQLModel.metadata
 
 
 def run_migrations_offline() -> None:
+    # Режим --sql печатает SQL миграций без подключения и без изменения базы.
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -145,6 +150,7 @@ def run_migrations_online() -> None:
             context.run_migrations()
         return
 
+    # Обычный запуск Alembic сам открывает соединение с БД из настроек проекта.
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",

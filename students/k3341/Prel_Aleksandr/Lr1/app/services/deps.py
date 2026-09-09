@@ -15,6 +15,7 @@ def get_current_user(
     credentials: HTTPAuthorizationCredentials | None = Depends(security),
     session: Session = Depends(get_session),
 ) -> User:
+    # HTTPBearer уже отделил слово Bearer; credentials.credentials содержит сам JWT.
     if credentials is None:
         raise HTTPException(status_code=401, detail="Authentication required", headers={"WWW-Authenticate": "Bearer"})
     try:

@@ -5,6 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
+# Ищем .env рядом с проектом, независимо от папки, из которой запущен Python.
 BASE_DIR = Path(__file__).resolve().parents[2]
 load_dotenv(BASE_DIR / ".env")
 

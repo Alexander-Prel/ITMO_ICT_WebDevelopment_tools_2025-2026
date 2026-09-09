@@ -7,6 +7,7 @@ from app.core.time import as_moscow
 
 # Этот тип меняет представление даты в ответе API, а не момент события в базе.
 MoscowDatetime = Annotated[
+    # Сначала требуем дату с поясом, затем переводим её в московское представление.
     AwareDatetime,
     AfterValidator(as_moscow),
     Field(

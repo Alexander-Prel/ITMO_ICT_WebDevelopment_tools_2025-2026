@@ -35,6 +35,7 @@ class LibraryItemInBook(BaseModel):
         from_attributes = True
 
 
+# Вход содержит данные книги; ID, создателя и дату назначают БД и сервер.
 class BookCreate(BaseModel):
     title: str
     author: str
@@ -42,6 +43,7 @@ class BookCreate(BaseModel):
     description: Optional[str] = None
 
 
+# Ответ показывает не только внешние ключи, но и вложенные сведения по связям.
 class BookRead(BaseModel):
     id: int
     title: str

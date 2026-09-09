@@ -12,6 +12,7 @@ def root() -> dict[str, str]:
     return {"message": "BookCrossing API is running"}
 
 
+# Роутеры объединяются в одно API; их prefix задаёт начальную часть адреса.
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(genres.router)

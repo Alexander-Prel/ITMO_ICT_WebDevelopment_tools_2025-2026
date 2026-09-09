@@ -19,6 +19,7 @@ class UserService:
 
     @staticmethod
     def update(session: Session, user: User, data: UserUpdate) -> User:
+        # Свой текущий email можно оставить; конфликт ищем только при выборе другого адреса.
         if data.email and data.email != user.email:
             existing_user = session.exec(select(User).where(User.email == data.email)).first()
             if existing_user:
@@ -33,6 +34,7 @@ class UserService:
         # Не передали фамилию: сохраняем прежнюю. Передали null или пробелы: очищаем её.
         if "last_name" in data.model_fields_set:
             user.last_name = (data.last_name.strip() or None) if data.last_name is not None else None
+        # None означает, что это поле не обновляем; пустая строка позволяет очистить текст.
         if data.bio is not None:
             user.bio = data.bio
         if data.city is not None:

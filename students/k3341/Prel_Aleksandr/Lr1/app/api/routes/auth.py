@@ -11,11 +11,13 @@ from app.services.deps import get_current_user
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
+# response_model оставляет только публичные поля, даже если сервис вернул ORM-пользователя с хэшем.
 @router.post("/register", response_model=LoginResponse)
 def register(data: RegisterRequest, session: Session = Depends(get_session)) -> dict[str, object]:
     return AuthService.register(session, data)
 
 
+# Вход принимает JSON, а не форму OAuth2: Swagger Authorize используется уже с готовым токеном.
 @router.post("/login", response_model=LoginResponse)
 def login(data: LoginRequest, session: Session = Depends(get_session)) -> dict[str, object]:
     return AuthService.login(session, data)

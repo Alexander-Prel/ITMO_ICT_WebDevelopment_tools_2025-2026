@@ -68,6 +68,7 @@ class ExchangeRequestService:
 
     @staticmethod
     def get_incoming_requests(session: Session, user: User) -> list[ExchangeRequest]:
+        # В заявке хранится автор, а получателя определяем по владельцу запрошенного экземпляра.
         return list(
             session.exec(
                 select(ExchangeRequest)
@@ -125,6 +126,7 @@ class ExchangeRequestService:
             ExchangeRequest.id != request_id,
             ExchangeRequest.status == ExchangeRequestStatus.pending,
         )).all()
+        # Всем решениям в этой операции задаём один момент времени.
         for other in others:
             other.status = ExchangeRequestStatus.declined
             other.resolved_at = exchange_request.resolved_at
@@ -187,6 +189,7 @@ class ExchangeRequestService:
 
     @staticmethod
     def _get_for_update(session: Session, request_id: int, user: User) -> ExchangeRequest:
+        # Сначала проверяем доступ к заявке. Общий метод используется принятием, отказом и отменой.
         exchange_request = ExchangeRequestService.get_by_id(session, request_id, user)
         # Заявки на одну копию ждут общую блокировку экземпляра до завершения транзакции.
         get_library_item_or_404(session, exchange_request.requested_item_id, lock=True)

@@ -19,6 +19,7 @@ def root() -> dict[str, str]:
     return {"message": "BookCrossing API is running"}
 
 
+# Роутеры объединяются в одно API; их prefix задаёт начальную часть адреса.
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(genres.router)
@@ -43,11 +44,13 @@ from app.services.deps import get_current_user
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
+# response_model оставляет только публичные поля, даже если сервис вернул ORM-пользователя с хэшем.
 @router.post("/register", response_model=LoginResponse)
 def register(data: RegisterRequest, session: Session = Depends(get_session)) -> dict[str, object]:
     return AuthService.register(session, data)
 
 
+# Вход принимает JSON, а не форму OAuth2: Swagger Authorize используется уже с готовым токеном.
 @router.post("/login", response_model=LoginResponse)
 def login(data: LoginRequest, session: Session = Depends(get_session)) -> dict[str, object]:
     return AuthService.login(session, data)
@@ -204,6 +207,8 @@ def get_exchange_request(
     return ExchangeRequestService.get_by_id(session, request_id, current_user)
 
 
+# Для смены статуса есть отдельные действия: клиент не может прислать любой status в JSON.
+# Проверки участника, владельца и текущего состояния выполняет сервис.
 @router.patch("/{request_id}/accept", response_model=ExchangeRequestRead)
 def accept_exchange_request(
     request_id: int,
@@ -315,6 +320,8 @@ def get_my_library(
     return LibraryItemService.get_my_library(session, current_user)
 
 
+# Query описывает параметры после ? в URL; ограничения limit/offset проверяет FastAPI.
+# /me и /search должны находиться раньше общего маршрута /{item_id}.
 @router.get("/search", response_model=List[LibraryItemRead])
 def search_library_items(
     q: str | None = Query(default=None, description="Поисковая строка: часть названия книги или имени автора. Пробелы по краям игнорируются"),
@@ -376,6 +383,7 @@ def get_users(session: Session = Depends(get_session)) -> list[User]:
     return UserService.get_all(session)
 
 
+# Фиксированный /me объявлен раньше /{user_id}, иначе слово me может попасть в параметр ID.
 @router.get("/me", response_model=UserRead)
 def get_me(current_user: User = Depends(get_current_user)) -> User:
     return current_user

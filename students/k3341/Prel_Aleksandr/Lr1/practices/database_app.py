@@ -15,18 +15,22 @@ from app.db.session import get_session
 
 
 def create_practice_app(schema: str, migrations: bool, bind: Engine | None = None) -> FastAPI:
+    # Имя схемы попадёт в SQL, поэтому допускаем только два заранее известных значения.
     if schema not in {"practice_1_2", "practice_1_3"}:
         raise ValueError("Unknown practice schema")
+    # search_path направляет обычные запросы в схему практики вместо основной public.
     engine = bind or create_engine(settings.database_url, connect_args={"options": f"-csearch_path={schema}"})
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
+        # Всё до yield подготавливает базу до приёма запросов; после yield освобождаем ресурсы.
         if bind is None:
             with engine.begin() as connection:
                 connection.execute(text(f'CREATE SCHEMA IF NOT EXISTS "{schema}"'))
         with engine.begin() as connection:
             if migrations:
                 config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
+                # Alembic использует это же соединение и не переключается случайно в public.
                 config.attributes["connection"] = connection
                 command.upgrade(config, "head")
             else:
@@ -41,6 +45,7 @@ def create_practice_app(schema: str, migrations: bool, bind: Engine | None = Non
         with Session(engine) as session:
             yield session
 
+    # Общие роутеры сохраняются, но получают сессию именно своей практики.
     app.dependency_overrides[get_session] = session_dependency
     for router in (auth.router, users.router, books.router, genres.router, library_items.router, exchange_requests.router):
         app.include_router(router)

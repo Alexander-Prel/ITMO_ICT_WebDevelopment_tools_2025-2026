@@ -12,6 +12,7 @@ pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
+    # Argon2 сам добавляет случайную соль: одинаковые пароли могут иметь разные хэши.
     return pwd_context.hash(password)
 
 
@@ -21,6 +22,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def create_access_token(data: dict[str, Any], expires_delta: Optional[timedelta] = None) -> str:
+    # Копия позволяет добавить срок действия, не меняя переданный вызывающим кодом словарь.
     to_encode = data.copy()
     expire = utc_now() + (
         expires_delta or timedelta(minutes=settings.access_token_expire_minutes)
@@ -32,6 +34,7 @@ def create_access_token(data: dict[str, Any], expires_delta: Optional[timedelta]
 
 def decode_access_token(token: str) -> dict[str, Any]:
     try:
+        # Разрешённый алгоритм задаёт сервер, а не непроверенное содержимое токена.
         return jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
     except JWTError as exc:
         raise ValueError("Invalid token") from exc

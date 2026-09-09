@@ -85,6 +85,7 @@ class LibraryItemInBook(BaseModel):
         from_attributes = True
 
 
+# Вход содержит данные книги; ID, создателя и дату назначают БД и сервер.
 class BookCreate(BaseModel):
     title: str
     author: str
@@ -92,6 +93,7 @@ class BookCreate(BaseModel):
     description: Optional[str] = None
 
 
+# Ответ показывает не только внешние ключи, но и вложенные сведения по связям.
 class BookRead(BaseModel):
     id: int
     title: str
@@ -159,6 +161,7 @@ class LibraryItemInExchangeRequest(BaseModel):
         from_attributes = True
 
 
+# Запрашивается ID экземпляра, а не ID общей карточки книги.
 class ExchangeRequestCreate(BaseModel):
     requested_item_id: int
     message: Optional[str] = None
@@ -248,6 +251,7 @@ class BookInLibraryItem(BaseModel):
         from_attributes = True
 
 
+# Владельца берём из JWT, начальный статус задаёт сервис; клиент выбирает только книгу и её состояние.
 class LibraryItemCreate(BaseModel):
     book_id: int
     condition: str = "good"
@@ -287,6 +291,7 @@ from app.core.time import as_moscow
 
 # Этот тип меняет представление даты в ответе API, а не момент события в базе.
 MoscowDatetime = Annotated[
+    # Сначала требуем дату с поясом, затем переводим её в московское представление.
     AwareDatetime,
     AfterValidator(as_moscow),
     Field(
@@ -306,6 +311,8 @@ from pydantic import BaseModel, Field
 from app.schemas.time import MoscowDatetime
 
 
+# Вложенные схемы короче полных: книга в профиле не содержит тот же профиль снова.
+# Это не даёт построить бесконечную цепочку пользователь -> книга -> пользователь.
 class BookInUser(BaseModel):
     id: int
     title: str
@@ -313,6 +320,7 @@ class BookInUser(BaseModel):
     isbn: Optional[str] = None
 
     class Config:
+        # Pydantic читает атрибуты ORM-объекта, а не требует готовый словарь.
         from_attributes = True
 
 
@@ -346,6 +354,7 @@ class UserCreate(BaseModel):
     contact_info: Optional[str] = None
 
 
+# В выходной схеме нет password и hashed_password: они не должны попасть в ответ API.
 class UserRead(BaseModel):
     id: int
     name: str
@@ -355,6 +364,7 @@ class UserRead(BaseModel):
     contact_info: Optional[str] = None
     bio: Optional[str] = None
     created_at: MoscowDatetime
+    # Фабрика создаёт новый пустой список для каждого экземпляра схемы.
     created_books: List[BookInUser] = Field(default_factory=list)
     library_items: List[LibraryItemInUser] = Field(default_factory=list)
     exchange_requests_sent: List[ExchangeRequestInUser] = Field(default_factory=list)

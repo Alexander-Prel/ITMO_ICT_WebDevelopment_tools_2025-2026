@@ -39,6 +39,7 @@ class LibraryItemInExchangeRequest(BaseModel):
         from_attributes = True
 
 
+# Запрашивается ID экземпляра, а не ID общей карточки книги.
 class ExchangeRequestCreate(BaseModel):
     requested_item_id: int
     message: Optional[str] = None

@@ -32,6 +32,7 @@ class ExchangeRequestStatus(str, Enum):
 class BookGenreLink(SQLModel, table=True):
     __tablename__ = "book_genre_links"
 
+    # Два поля образуют общий первичный ключ: пара книга-жанр не может повториться.
     book_id: Optional[int] = Field(
         default=None,
         foreign_key="books.id",
@@ -57,6 +58,8 @@ class User(SQLModel, table=True):
     hashed_password: str
     created_at: datetime = Field(default_factory=utc_now, sa_type=DateTime(timezone=True), nullable=False)
 
+    # Relationship даёт доступ к связанным объектам; отдельного столбца-списка в БД нет.
+    # back_populates указывает обратное свойство у связанной модели.
     created_books: List["Book"] = Relationship(back_populates="created_by")
     library_items: List["LibraryItem"] = Relationship(back_populates="user")
     exchange_requests_sent: List["ExchangeRequest"] = Relationship(back_populates="requester")
@@ -84,6 +87,7 @@ class Book(SQLModel, table=True):
     author: str
     isbn: Optional[str] = Field(default=None, sa_column=Column(String, unique=True, index=True))
     description: Optional[str] = ""
+    # Это создатель общей карточки, а не обязательно владелец физической книги.
     created_by_id: int = Field(foreign_key="users.id")
     created_at: datetime = Field(default_factory=utc_now, sa_type=DateTime(timezone=True), nullable=False)
 
@@ -99,6 +103,7 @@ class Book(SQLModel, table=True):
 class LibraryItem(SQLModel, table=True):
     __tablename__ = "library_items"
 
+    # Собственный ID позволяет одному владельцу иметь несколько копий одной книги.
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: int = Field(foreign_key="users.id")
     book_id: int = Field(foreign_key="books.id")
@@ -122,6 +127,7 @@ class ExchangeRequest(SQLModel, table=True):
     message: Optional[str] = ""
     status: ExchangeRequestStatus = ExchangeRequestStatus.pending
     created_at: datetime = Field(default_factory=utc_now, sa_type=DateTime(timezone=True), nullable=False)
+    # До решения по заявке даты нет; принятие, отказ и отмена заполняют её в сервисе.
     resolved_at: Optional[datetime] = Field(default=None, sa_type=DateTime(timezone=True))
 
     requester: Optional[User] = Relationship(back_populates="exchange_requests_sent")

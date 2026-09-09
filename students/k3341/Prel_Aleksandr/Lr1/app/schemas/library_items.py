@@ -26,6 +26,7 @@ class BookInLibraryItem(BaseModel):
         from_attributes = True
 
 
+# Владельца берём из JWT, начальный статус задаёт сервис; клиент выбирает только книгу и её состояние.
 class LibraryItemCreate(BaseModel):
     book_id: int
     condition: str = "good"

@@ -36,6 +36,8 @@ def get_my_library(
     return LibraryItemService.get_my_library(session, current_user)
 
 
+# Query описывает параметры после ? в URL; ограничения limit/offset проверяет FastAPI.
+# /me и /search должны находиться раньше общего маршрута /{item_id}.
 @router.get("/search", response_model=List[LibraryItemRead])
 def search_library_items(
     q: str | None = Query(default=None, description="Поисковая строка: часть названия книги или имени автора. Пробелы по краям игнорируются"),

@@ -19,6 +19,7 @@ pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
+    # Argon2 сам добавляет случайную соль: одинаковые пароли могут иметь разные хэши.
     return pwd_context.hash(password)
 
 
@@ -28,6 +29,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def create_access_token(data: dict[str, Any], expires_delta: Optional[timedelta] = None) -> str:
+    # Копия позволяет добавить срок действия, не меняя переданный вызывающим кодом словарь.
     to_encode = data.copy()
     expire = utc_now() + (
         expires_delta or timedelta(minutes=settings.access_token_expire_minutes)
@@ -39,6 +41,7 @@ def create_access_token(data: dict[str, Any], expires_delta: Optional[timedelta]
 
 def decode_access_token(token: str) -> dict[str, Any]:
     try:
+        # Разрешённый алгоритм задаёт сервер, а не непроверенное содержимое токена.
         return jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
     except JWTError as exc:
         raise ValueError("Invalid token") from exc
@@ -77,6 +80,7 @@ class AuthService:
         )
         session.add(user)
         session.commit()
+        # ID назначает база; после refresh его можно использовать в поле sub нового токена.
         session.refresh(user)
 
         # sub содержит ID пользователя, чтобы по токену определить автора следующих запросов.
@@ -153,6 +157,7 @@ class BookService:
         q = q.strip() if q else None
         statement = select(Book).order_by(Book.id)
         if q:
+            # ilike ищет без учёта регистра, а % разрешает совпадение внутри названия или автора.
             statement = statement.where(or_(Book.title.ilike(f"%{q}%"), Book.author.ilike(f"%{q}%")))
         return list(session.exec(statement).all())
 
@@ -163,6 +168,7 @@ class BookService:
     @staticmethod
     def update(session: Session, book_id: int, data: BookUpdate, user: User) -> Book:
         book = get_book_or_404(session, book_id)
+        # Доступ к чтению карточки не даёт права её редактировать.
         ensure_book_creator(book, user)
 
         if data.isbn and data.isbn != book.isbn:
@@ -225,6 +231,7 @@ class BookService:
 
         # Повторное добавление того же жанра не создаёт вторую связь.
         if genre not in book.genres:
+            # ORM превратит изменение списка в запись таблицы book_genre_links.
             book.genres.append(genre)
             session.add(book)
             session.commit()
@@ -252,6 +259,7 @@ def get_current_user(
     credentials: HTTPAuthorizationCredentials | None = Depends(security),
     session: Session = Depends(get_session),
 ) -> User:
+    # HTTPBearer уже отделил слово Bearer; credentials.credentials содержит сам JWT.
     if credentials is None:
         raise HTTPException(status_code=401, detail="Authentication required", headers={"WWW-Authenticate": "Bearer"})
     try:
@@ -366,6 +374,7 @@ class ExchangeRequestService:
 
     @staticmethod
     def get_incoming_requests(session: Session, user: User) -> list[ExchangeRequest]:
+        # В заявке хранится автор, а получателя определяем по владельцу запрошенного экземпляра.
         return list(
             session.exec(
                 select(ExchangeRequest)
@@ -423,6 +432,7 @@ class ExchangeRequestService:
             ExchangeRequest.id != request_id,
             ExchangeRequest.status == ExchangeRequestStatus.pending,
         )).all()
+        # Всем решениям в этой операции задаём один момент времени.
         for other in others:
             other.status = ExchangeRequestStatus.declined
             other.resolved_at = exchange_request.resolved_at
@@ -485,6 +495,7 @@ class ExchangeRequestService:
 
     @staticmethod
     def _get_for_update(session: Session, request_id: int, user: User) -> ExchangeRequest:
+        # Сначала проверяем доступ к заявке. Общий метод используется принятием, отказом и отменой.
         exchange_request = ExchangeRequestService.get_by_id(session, request_id, user)
         # Заявки на одну копию ждут общую блокировку экземпляра до завершения транзакции.
         get_library_item_or_404(session, exchange_request.requested_item_id, lock=True)
@@ -572,6 +583,7 @@ from app.services.permissions import ensure_library_item_owner, get_book_or_404,
 class LibraryItemService:
     @staticmethod
     def create(session: Session, data: LibraryItemCreate, user: User) -> LibraryItem:
+        # Не создаём карточку заново: сначала проверяем ссылку на существующую книгу.
         get_book_or_404(session, data.book_id)
         # Карточка книги уже существует; создаём её экземпляр у пользователя из токена.
         item = LibraryItem(
@@ -606,6 +618,7 @@ class LibraryItemService:
             statement = statement.where(User.city.ilike(f"%{city}%"))
         if available_only:
             statement = statement.where(LibraryItem.status == LibraryItemStatus.available)
+        # Сортировка делает страницы предсказуемыми: offset пропускает строки, limit ограничивает выдачу.
         return list(session.exec(statement.order_by(LibraryItem.id).offset(offset).limit(limit)).all())
 
     @staticmethod
@@ -730,6 +743,7 @@ class UserService:
 
     @staticmethod
     def update(session: Session, user: User, data: UserUpdate) -> User:
+        # Свой текущий email можно оставить; конфликт ищем только при выборе другого адреса.
         if data.email and data.email != user.email:
             existing_user = session.exec(select(User).where(User.email == data.email)).first()
             if existing_user:
@@ -744,6 +758,7 @@ class UserService:
         # Не передали фамилию: сохраняем прежнюю. Передали null или пробелы: очищаем её.
         if "last_name" in data.model_fields_set:
             user.last_name = (data.last_name.strip() or None) if data.last_name is not None else None
+        # None означает, что это поле не обновляем; пустая строка позволяет очистить текст.
         if data.bio is not None:
             user.bio = data.bio
         if data.city is not None:

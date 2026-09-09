@@ -19,6 +19,7 @@ def get_users(session: Session = Depends(get_session)) -> list[User]:
     return UserService.get_all(session)
 
 
+# Фиксированный /me объявлен раньше /{user_id}, иначе слово me может попасть в параметр ID.
 @router.get("/me", response_model=UserRead)
 def get_me(current_user: User = Depends(get_current_user)) -> User:
     return current_user

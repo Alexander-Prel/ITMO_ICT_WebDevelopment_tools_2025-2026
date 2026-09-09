@@ -19,10 +19,12 @@ config.set_main_option("sqlalchemy.url", settings.database_url.replace("%", "%%"
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+# Метаданные описывают желаемую схему; Alembic сравнивает её с БД при autogenerate/check.
 target_metadata = SQLModel.metadata
 
 
 def run_migrations_offline() -> None:
+    # Режим --sql печатает SQL миграций без подключения и без изменения базы.
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -44,6 +46,7 @@ def run_migrations_online() -> None:
             context.run_migrations()
         return
 
+    # Обычный запуск Alembic сам открывает соединение с БД из настроек проекта.
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",

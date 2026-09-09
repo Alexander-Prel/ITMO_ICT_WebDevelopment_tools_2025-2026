@@ -5,6 +5,8 @@ from pydantic import BaseModel, Field
 from app.schemas.time import MoscowDatetime
 
 
+# Вложенные схемы короче полных: книга в профиле не содержит тот же профиль снова.
+# Это не даёт построить бесконечную цепочку пользователь -> книга -> пользователь.
 class BookInUser(BaseModel):
     id: int
     title: str
@@ -12,6 +14,7 @@ class BookInUser(BaseModel):
     isbn: Optional[str] = None
 
     class Config:
+        # Pydantic читает атрибуты ORM-объекта, а не требует готовый словарь.
         from_attributes = True
 
 
@@ -45,6 +48,7 @@ class UserCreate(BaseModel):
     contact_info: Optional[str] = None
 
 
+# В выходной схеме нет password и hashed_password: они не должны попасть в ответ API.
 class UserRead(BaseModel):
     id: int
     name: str
@@ -54,6 +58,7 @@ class UserRead(BaseModel):
     contact_info: Optional[str] = None
     bio: Optional[str] = None
     created_at: MoscowDatetime
+    # Фабрика создаёт новый пустой список для каждого экземпляра схемы.
     created_books: List[BookInUser] = Field(default_factory=list)
     library_items: List[LibraryItemInUser] = Field(default_factory=list)
     exchange_requests_sent: List[ExchangeRequestInUser] = Field(default_factory=list)

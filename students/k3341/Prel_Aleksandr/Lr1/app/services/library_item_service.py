@@ -10,6 +10,7 @@ from app.services.permissions import ensure_library_item_owner, get_book_or_404,
 class LibraryItemService:
     @staticmethod
     def create(session: Session, data: LibraryItemCreate, user: User) -> LibraryItem:
+        # Не создаём карточку заново: сначала проверяем ссылку на существующую книгу.
         get_book_or_404(session, data.book_id)
         # Карточка книги уже существует; создаём её экземпляр у пользователя из токена.
         item = LibraryItem(
@@ -44,6 +45,7 @@ class LibraryItemService:
             statement = statement.where(User.city.ilike(f"%{city}%"))
         if available_only:
             statement = statement.where(LibraryItem.status == LibraryItemStatus.available)
+        # Сортировка делает страницы предсказуемыми: offset пропускает строки, limit ограничивает выдачу.
         return list(session.exec(statement.order_by(LibraryItem.id).offset(offset).limit(limit)).all())
 
     @staticmethod
