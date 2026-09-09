@@ -1,0 +1,212 @@
+# Код практик
+
+Финальная версия кода. Пути указаны от папки `Lr1`.
+
+## `practices/database_app.py`
+
+```python
+"""Reuse the domain code while keeping each practice in its own PostgreSQL schema."""
+
+from contextlib import asynccontextmanager
+from pathlib import Path
+
+from alembic import command
+from alembic.config import Config
+from fastapi import FastAPI
+from sqlalchemy import Engine, create_engine, text
+from sqlmodel import SQLModel, Session
+
+from app.api.routes import auth, books, exchange_requests, genres, library_items, users
+from app.core.config import settings
+from app.db.session import get_session
+
+
+def create_practice_app(schema: str, migrations: bool, bind: Engine | None = None) -> FastAPI:
+    if schema not in {"practice_1_2", "practice_1_3"}:
+        raise ValueError("Unknown practice schema")
+    engine = bind or create_engine(settings.database_url, connect_args={"options": f"-csearch_path={schema}"})
+
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        if bind is None:
+            with engine.begin() as connection:
+                connection.execute(text(f'CREATE SCHEMA IF NOT EXISTS "{schema}"'))
+        with engine.begin() as connection:
+            if migrations:
+                config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
+                config.attributes["connection"] = connection
+                command.upgrade(config, "head")
+            else:
+                SQLModel.metadata.create_all(connection)
+        yield
+        if bind is None:
+            engine.dispose()
+
+    app = FastAPI(title=f"BookCrossing: {schema}", lifespan=lifespan)
+
+    def session_dependency():
+        with Session(engine) as session:
+            yield session
+
+    app.dependency_overrides[get_session] = session_dependency
+    for router in (auth.router, users.router, books.router, genres.router, library_items.router, exchange_requests.router):
+        app.include_router(router)
+    return app
+```
+
+## `practices/practice_1_1/main.py`
+
+```python
+"""Practice 1.1: validated CRUD and nested responses without a real database."""
+
+from fastapi import FastAPI, HTTPException
+
+from .models import Author, AuthorInput, BookInput, BookRead, Genre, GenreInput
+
+
+def create_app() -> FastAPI:
+    app = FastAPI(title="BookCrossing: practice 1.1")
+    authors = {1: Author(id=1, name="Jane Austen"), 2: Author(id=2, name="Lewis Carroll")}
+    genres = {1: Genre(id=1, name="Novel"), 2: Genre(id=2, name="Fantasy")}
+    books = {
+        1: BookInput(title="Pride and Prejudice", author_id=1, genre_ids=[1]),
+        2: BookInput(title="Alice in Wonderland", author_id=2, genre_ids=[1, 2]),
+    }
+
+    def book_response(book_id: int) -> BookRead:
+        if book_id not in books:
+            raise HTTPException(status_code=404, detail="Book not found")
+        book = books[book_id]
+        return BookRead(id=book_id, title=book.title, author=authors[book.author_id],
+                        genres=[genres[genre_id] for genre_id in book.genre_ids])
+
+    def validate_relations(book: BookInput) -> None:
+        if book.author_id not in authors or any(value not in genres for value in book.genre_ids):
+            raise HTTPException(status_code=404, detail="Author or genre not found")
+
+    @app.get("/books/")
+    def list_books() -> list[BookRead]:
+        return [book_response(book_id) for book_id in books]
+
+    @app.get("/books/{book_id}")
+    def get_book(book_id: int) -> BookRead:
+        return book_response(book_id)
+
+    @app.post("/books/")
+    def create_book(data: BookInput) -> BookRead:
+        validate_relations(data)
+        book_id = max(books, default=0) + 1
+        books[book_id] = data
+        return book_response(book_id)
+
+    @app.put("/books/{book_id}")
+    def update_book(book_id: int, data: BookInput) -> BookRead:
+        book_response(book_id)
+        validate_relations(data)
+        books[book_id] = data
+        return book_response(book_id)
+
+    @app.delete("/books/{book_id}")
+    def delete_book(book_id: int) -> dict[str, bool]:
+        book_response(book_id)
+        del books[book_id]
+        return {"deleted": True}
+
+    @app.get("/authors/")
+    def list_authors() -> list[Author]:
+        return list(authors.values())
+
+    @app.get("/authors/{author_id}")
+    def get_author(author_id: int) -> Author:
+        if author_id not in authors:
+            raise HTTPException(status_code=404, detail="Author not found")
+        return authors[author_id]
+
+    @app.post("/authors/")
+    def create_author(data: AuthorInput) -> Author:
+        author = Author(id=max(authors, default=0) + 1, **data.model_dump())
+        authors[author.id] = author
+        return author
+
+    @app.put("/authors/{author_id}")
+    def update_author(author_id: int, data: AuthorInput) -> Author:
+        get_author(author_id)
+        authors[author_id] = Author(id=author_id, **data.model_dump())
+        return authors[author_id]
+
+    @app.delete("/authors/{author_id}")
+    def delete_author(author_id: int) -> dict[str, bool]:
+        get_author(author_id)
+        if any(book.author_id == author_id for book in books.values()):
+            raise HTTPException(status_code=409, detail="Author has books")
+        del authors[author_id]
+        return {"deleted": True}
+
+    @app.get("/genres/")
+    def list_genres() -> list[Genre]:
+        return list(genres.values())
+
+    @app.post("/genres/")
+    def create_genre(data: GenreInput) -> Genre:
+        genre = Genre(id=max(genres, default=0) + 1, **data.model_dump())
+        genres[genre.id] = genre
+        return genre
+
+    return app
+
+
+app = create_app()
+```
+
+## `practices/practice_1_1/models.py`
+
+```python
+from pydantic import BaseModel, Field
+
+
+class AuthorInput(BaseModel):
+    name: str = Field(min_length=1)
+
+
+class Author(AuthorInput):
+    id: int
+
+
+class GenreInput(BaseModel):
+    name: str = Field(min_length=1)
+
+
+class Genre(GenreInput):
+    id: int
+
+
+class BookInput(BaseModel):
+    title: str = Field(min_length=1)
+    author_id: int
+    genre_ids: list[int] = Field(default_factory=list)
+
+
+class BookRead(BaseModel):
+    id: int
+    title: str
+    author: Author
+    genres: list[Genre]
+```
+
+## `practices/practice_1_2/main.py`
+
+```python
+from practices.database_app import create_practice_app
+
+
+app = create_practice_app("practice_1_2", migrations=False)
+```
+
+## `practices/practice_1_3/main.py`
+
+```python
+from practices.database_app import create_practice_app
+
+
+app = create_practice_app("practice_1_3", migrations=True)
+```
