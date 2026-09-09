@@ -1,0 +1,1071 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Лабораторная работа 1 и практики 1.1-1.3. API для буккросинга.">
+      
+      
+        <meta name="author" content="Прель Александр">
+      
+      
+        <link rel="canonical" href="https://alexander-prel.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/lab1/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../practices/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>Лабораторная работа 1 - Прель Александр | K3341 | Web Development Tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href=".." title="Прель Александр | K3341 | Web Development Tools" class="md-header__button md-logo" aria-label="Прель Александр | K3341 | Web Development Tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Прель Александр | K3341 | Web Development Tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Лабораторная работа 1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Alexander-Prel/ITMO_ICT_WebDevelopment_tools_2025-2026" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Прель Александр | K3341 | Web Development Tools" class="md-nav__button md-logo" aria-label="Прель Александр | K3341 | Web Development Tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Прель Александр | K3341 | Web Development Tools
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Alexander-Prel/ITMO_ICT_WebDevelopment_tools_2025-2026" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Главная
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Лабораторная работа 1
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Лабораторная работа 1
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Назначение и технологии
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Архитектура
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Модель данных
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Все эндпоинты
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Авторизация
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Управление обменом
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Миграции и время
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Результат и границы реализации
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Практики 1.1-1.3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Установка и запуск
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Модели данных
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Подключение и миграции
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Код эндпоинтов
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Схемы API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Бизнес-логика и авторизация
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practice_source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Код практик
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Назначение и технологии
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Архитектура
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Модель данных
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Все эндпоинты
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Авторизация
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Управление обменом
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Миграции и время
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Результат и границы реализации
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="1">ЛР1. Серверное приложение для буккросинга<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<h2 id="_1">Назначение и технологии<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Сервис позволяет зарегистрировать профиль, разместить свои экземпляры книг,
+найти экземпляры других пользователей и согласовать обмен через заявки.</p>
+<p>Использованы Python 3.12, FastAPI 0.115.0, SQLModel 0.0.21,
+SQLAlchemy 2.0.35, PostgreSQL 16, Alembic 1.13.2, Pydantic 2.9.2,
+Uvicorn 0.30.6, python-jose 3.3.0 и passlib с Argon2.
+Зависимости зафиксированы в <code>Lr1/requirements.txt</code>.</p>
+<h2 id="_2">Архитектура<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">HTTP-запрос
+  -&gt; роутер FastAPI + проверка входной схемы Pydantic
+  -&gt; Depends: сессия БД, при необходимости текущий пользователь
+  -&gt; сервис: проверки прав и допустимости операции
+  -&gt; SQLModel / SQLAlchemy -&gt; PostgreSQL
+  -&gt; выходная схема Pydantic -&gt; JSON
+</code></pre>
+<p>Роутеры не содержат основной бизнес-логики. Сервисы принимают сессию и
+проверенного пользователя, выполняют изменения и фиксируют транзакцию.
+<code>response_model</code> определяет состав ответа и исключает хеш пароля.</p>
+<h2 id="_3">Модель данных<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Таблица</th>
+<th>Основные данные</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>users</code></td>
+<td>Имя, фамилия, уникальный email, город, контакты, описание, хеш пароля, дата регистрации</td>
+</tr>
+<tr>
+<td><code>books</code></td>
+<td>Название, автор, уникальный необязательный ISBN, описание, создатель, дата</td>
+</tr>
+<tr>
+<td><code>genres</code></td>
+<td>Уникальное название жанра и описание</td>
+</tr>
+<tr>
+<td><code>book_genre_links</code></td>
+<td>Составной первичный ключ из книги и жанра</td>
+</tr>
+<tr>
+<td><code>library_items</code></td>
+<td>Владелец, книга, состояние, статус доступности, комментарий, дата</td>
+</tr>
+<tr>
+<td><code>exchange_requests</code></td>
+<td>Автор заявки, запрошенный экземпляр, сообщение, статус и даты</td>
+</tr>
+</tbody>
+</table>
+<p><code>User -&gt; Book</code>, <code>User -&gt; LibraryItem</code>, <code>Book -&gt; LibraryItem</code> и
+<code>LibraryItem -&gt; ExchangeRequest</code> являются связями one-to-many.
+<code>Book &lt;-&gt; Genre</code> является many-to-many через <code>BookGenreLink</code>.
+Пользователи связаны с книгами через ассоциативную сущность <code>LibraryItem</code>:
+она хранит не только внешние ключи, но и <code>condition</code>, <code>status</code>, <code>comment</code>, <code>added_at</code>.
+Одна карточка книги может иметь несколько физических экземпляров.</p>
+<p>Кроме шести предметных таблиц сохранена вспомогательная <code>parsed_pages</code>
+(URL, заголовок страницы, источник, необязательная книга, время загрузки).
+Она нужна для совместимости истории схемы с дальнейшим развитием проекта;
+парсер и программы ЛР2 в состав этой сдачи не входят.
+Таблица <code>alembic_version</code> хранит технический номер миграции.</p>
+<p>Полные модели приведены в разделе <a href="../models/">Модели данных</a>.</p>
+<h2 id="_4">Все эндпоинты<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Обозначения доступа: публичный, JWT, создатель карточки, владелец экземпляра,
+участник заявки (автор либо владелец запрошенного экземпляра).
+Проверка владения выполняется поверх проверки JWT.</p>
+<table>
+<thead>
+<tr>
+<th>Метод</th>
+<th>Путь</th>
+<th>Назначение и доступ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/</code></td>
+<td>Состояние API; публичный</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/auth/register</code></td>
+<td>Регистрация, токен и профиль; публичный</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/auth/login</code></td>
+<td>Вход по JSON с email и паролем; публичный</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/auth/change-password</code></td>
+<td>Смена пароля с проверкой старого; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/users/</code></td>
+<td>Список профилей; публичный</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/users/me</code></td>
+<td>Текущий профиль; JWT</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td><code>/users/me</code></td>
+<td>Изменение своего профиля; JWT</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/users/me</code></td>
+<td>Удаление своего профиля без связанных данных; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/users/{user_id}</code></td>
+<td>Профиль с вложенными объектами; публичный</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/books/</code></td>
+<td>Создание карточки; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/books/</code></td>
+<td>Каталог, поиск по <code>q</code>; публичный</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/books/{book_id}</code></td>
+<td>Карточка с создателем, жанрами и экземплярами; публичный</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td><code>/books/{book_id}</code></td>
+<td>Изменение карточки; создатель</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/books/{book_id}</code></td>
+<td>Удаление карточки без экземпляров; создатель</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/books/{book_id}/genres/{genre_id}</code></td>
+<td>Добавление связи с жанром; создатель</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/books/{book_id}/genres/{genre_id}</code></td>
+<td>Удаление связи с жанром; создатель</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/genres/</code></td>
+<td>Создание жанра; публичный</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/genres/</code></td>
+<td>Список жанров; публичный</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/genres/{genre_id}</code></td>
+<td>Жанр с книгами; публичный</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td><code>/genres/{genre_id}</code></td>
+<td>Изменение жанра; публичный</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/genres/{genre_id}</code></td>
+<td>Удаление жанра; публичный</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/library-items/</code></td>
+<td>Добавление экземпляра в свою библиотеку; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/library-items/</code></td>
+<td>Общий список экземпляров; публичный</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/library-items/me</code></td>
+<td>Своя библиотека; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/library-items/search</code></td>
+<td>Поиск чужих экземпляров; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/library-items/{item_id}</code></td>
+<td>Экземпляр с книгой и владельцем; публичный</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td><code>/library-items/{item_id}</code></td>
+<td>Состояние, статус и комментарий; владелец</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/library-items/{item_id}</code></td>
+<td>Удаление экземпляра без заявок; владелец</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/exchange-requests/</code></td>
+<td>Заявка на доступный чужой экземпляр; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/exchange-requests/</code></td>
+<td>Все заявки с участием текущего пользователя; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/exchange-requests/me</code></td>
+<td>Исходящие заявки; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/exchange-requests/incoming</code></td>
+<td>Входящие заявки; JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/exchange-requests/{request_id}</code></td>
+<td>Подробная заявка; участник</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td><code>/exchange-requests/{request_id}/accept</code></td>
+<td>Принятие ожидающей заявки; владелец</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td><code>/exchange-requests/{request_id}/decline</code></td>
+<td>Отклонение ожидающей заявки; владелец</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td><code>/exchange-requests/{request_id}/cancel</code></td>
+<td>Отмена ожидающей заявки; автор</td>
+</tr>
+</tbody>
+</table>
+<p><code>q</code> означает строку запроса: поиск подстроки названия или автора без учёта
+регистра. Для поиска чужих экземпляров также доступны <code>city</code>,
+<code>available_only</code> (по умолчанию <code>true</code>), <code>limit</code> и <code>offset</code>.
+Город сравнивается по подстроке без учёта регистра, пробелы по краям
+поисковых значений отбрасываются. Собственные экземпляры исключаются
+независимо от фильтра доступности.</p>
+<p>Полные сигнатуры, параметры, типы и <code>response_model</code> приведены в
+<a href="../api/">коде эндпоинтов</a> и <a href="../schemas/">схемах API</a>.</p>
+<h2 id="_5">Авторизация<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>Регистрация и вход реализованы вручную в сервисе авторизации.
+Библиотеки используются для Argon2 и подписи JWT, но не для готовой
+системы управления пользователями. Уникальность email проверяется сервисом
+и ограничением БД. В БД сохраняется хеш, а не исходный пароль.</p>
+<p>JWT содержит <code>sub</code> с ID пользователя и <code>exp</code> со сроком действия.
+<code>HTTPBearer</code> извлекает токен; зависимость проверяет подпись, срок действия
+и существование пользователя. Идентификатор владельца/автора операции
+берётся из токена, а не из отправленного клиентом JSON.
+Подпись не шифрует содержимое JWT. Срок по умолчанию составляет 60 минут.
+Смена пароля требует текущий пароль, но не отзывает уже выданные JWT.</p>
+<h2 id="_6">Управление обменом<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Действие</th>
+<th>Заявка</th>
+<th>Экземпляр</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Создание заявки</td>
+<td><code>pending</code></td>
+<td>Остаётся <code>available</code></td>
+</tr>
+<tr>
+<td>Принятие владельцем</td>
+<td><code>accepted</code></td>
+<td><code>reserved</code></td>
+</tr>
+<tr>
+<td>Отклонение владельцем</td>
+<td><code>declined</code></td>
+<td>Не изменяется</td>
+</tr>
+<tr>
+<td>Отмена автором</td>
+<td><code>cancelled</code></td>
+<td>Не изменяется</td>
+</tr>
+</tbody>
+</table>
+<p>Дубликат ожидающей заявки одного читателя на тот же экземпляр запрещён.
+При принятии строка экземпляра блокируется через <code>FOR UPDATE</code>, состояние
+перечитывается, другие ожидающие заявки на эту копию отклоняются.
+Все изменения фиксируются одним <code>commit</code>, поэтому экземпляр не должен
+быть одновременно обещан разным читателям через API.</p>
+<p>Принятую заявку нельзя повторно принять или отменить через <code>cancel</code>.
+Экземпляр с принятой заявкой нельзя вернуть в <code>available</code> через PATCH.
+Удаление экземпляра с заявками запрещено для сохранения истории.</p>
+<p>Владелец может вручную отметить экземпляр <code>exchanged</code>, но это не переносит
+его в библиотеку читателя и не является двусторонним подтверждением передачи.
+Принятие заявки в рамках этой работы означает согласование и резервирование.</p>
+<h2 id="_7">Миграции и время<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>0001_initial</code>: исходная схема буккросинга и enum-типы.</li>
+<li><code>0002_parsed_pages</code>: вспомогательная таблица источников.</li>
+<li><code>0003_user_last_name</code>: фамилия пользователя.</li>
+<li><code>0004_timezone_aware_dates</code>: даты с часовым поясом.</li>
+</ol>
+<p>Время создаётся в UTC; поля PostgreSQL используют <code>timestamp with time zone</code>.
+Ответы API преобразуются в <code>Europe/Moscow</code> и содержат <code>+03:00</code>.
+Миграция старых дат явно трактует прежние значения как UTC, сохраняя момент
+события. Код подключения и всех миграций приведён в <a href="../database/">отдельном разделе</a>.</p>
+<h2 id="_8">Результат и границы реализации<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>Реализованы CRUD профилей, книг, жанров и экземпляров, а для заявок:
+создание, чтение и отдельные действия изменения статуса. У заявок нет
+универсального PATCH или DELETE: история сохраняется.
+Три практики оформлены <a href="../practices/">отдельными папками</a>.</p>
+<p>Разделение слоёв, типизация, вложенные ответы, PostgreSQL, миграции и ручная
+JWT-аутентификация представлены в финальном коде. Отчёт собирается MkDocs.
+Это учебный API без пользовательского фронтенда, административных ролей,
+отзыва токенов и проверки владения почтой. Справочник жанров доступен для
+изменения без авторизации. Для публичной эксплуатации эти ограничения
+потребуют отдельной доработки.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
