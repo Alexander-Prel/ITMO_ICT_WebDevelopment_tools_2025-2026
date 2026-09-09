@@ -632,18 +632,22 @@ from app.db.session import get_session
 
 
 def create_practice_app(schema: str, migrations: bool, bind: Engine | None = None) -&gt; FastAPI:
+    # Имя схемы попадёт в SQL, поэтому допускаем только два заранее известных значения.
     if schema not in {&quot;practice_1_2&quot;, &quot;practice_1_3&quot;}:
         raise ValueError(&quot;Unknown practice schema&quot;)
+    # search_path направляет обычные запросы в схему практики вместо основной public.
     engine = bind or create_engine(settings.database_url, connect_args={&quot;options&quot;: f&quot;-csearch_path={schema}&quot;})
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
+        # Всё до yield подготавливает базу до приёма запросов; после yield освобождаем ресурсы.
         if bind is None:
             with engine.begin() as connection:
                 connection.execute(text(f'CREATE SCHEMA IF NOT EXISTS &quot;{schema}&quot;'))
         with engine.begin() as connection:
             if migrations:
                 config = Config(str(Path(__file__).resolve().parents[1] / &quot;alembic.ini&quot;))
+                # Alembic использует это же соединение и не переключается случайно в public.
                 config.attributes[&quot;connection&quot;] = connection
                 command.upgrade(config, &quot;head&quot;)
             else:
@@ -658,6 +662,7 @@ def create_practice_app(schema: str, migrations: bool, bind: Engine | None = Non
         with Session(engine) as session:
             yield session
 
+    # Общие роутеры сохраняются, но получают сессию именно своей практики.
     app.dependency_overrides[get_session] = session_dependency
     for router in (auth.router, users.router, books.router, genres.router, library_items.router, exchange_requests.router):
         app.include_router(router)
@@ -673,6 +678,7 @@ from .models import Author, AuthorInput, BookInput, BookRead, Genre, GenreInput
 
 def create_app() -&gt; FastAPI:
     app = FastAPI(title=&quot;BookCrossing: practice 1.1&quot;)
+    # Это словари в памяти процесса: после перезапуска приложение снова получит исходные записи.
     authors = {1: Author(id=1, name=&quot;Jane Austen&quot;), 2: Author(id=2, name=&quot;Lewis Carroll&quot;)}
     genres = {1: Genre(id=1, name=&quot;Novel&quot;), 2: Genre(id=2, name=&quot;Fantasy&quot;)}
     books = {
@@ -684,10 +690,12 @@ def create_app() -&gt; FastAPI:
         if book_id not in books:
             raise HTTPException(status_code=404, detail=&quot;Book not found&quot;)
         book = books[book_id]
+        # В хранилище находятся ID связей, а в ответ подставляются объекты автора и жанров.
         return BookRead(id=book_id, title=book.title, author=authors[book.author_id],
                         genres=[genres[genre_id] for genre_id in book.genre_ids])
 
     def validate_relations(book: BookInput) -&gt; None:
+        # Тип int ещё не гарантирует существование объекта; ссылки проверяем отдельно.
         if book.author_id not in authors or any(value not in genres for value in book.genre_ids):
             raise HTTPException(status_code=404, detail=&quot;Author or genre not found&quot;)
 
@@ -710,6 +718,7 @@ def create_app() -&gt; FastAPI:
     def update_book(book_id: int, data: BookInput) -&gt; BookRead:
         book_response(book_id)
         validate_relations(data)
+        # PUT заменяет сохранённые данные книги целиком, в отличие от частичного PATCH итогового API.
         books[book_id] = data
         return book_response(book_id)
 
@@ -744,6 +753,7 @@ def create_app() -&gt; FastAPI:
     @app.delete(&quot;/authors/{author_id}&quot;)
     def delete_author(author_id: int) -&gt; dict[str, bool]:
         get_author(author_id)
+        # Иначе книги продолжили бы ссылаться на уже отсутствующего автора.
         if any(book.author_id == author_id for book in books.values()):
             raise HTTPException(status_code=409, detail=&quot;Author has books&quot;)
         del authors[author_id]
