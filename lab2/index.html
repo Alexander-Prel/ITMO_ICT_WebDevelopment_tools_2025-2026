@@ -1,0 +1,1210 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Буккросинг, практики 1.1-1.3 и ЛР2 о потоках, процессах и асинхронности.">
+      
+      
+        <meta name="author" content="Прель Александр">
+      
+      
+        <link rel="canonical" href="https://alexander-prel.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/lab2/">
+      
+      
+        <link rel="prev" href="../practices/">
+      
+      
+        <link rel="next" href="../lab2_setup/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>Лабораторная работа 2 - Прель Александр | K3341 | Web Development Tools</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href=".." title="Прель Александр | K3341 | Web Development Tools" class="md-header__button md-logo" aria-label="Прель Александр | K3341 | Web Development Tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Прель Александр | K3341 | Web Development Tools
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Лабораторная работа 2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Alexander-Prel/ITMO_ICT_WebDevelopment_tools_2025-2026" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Прель Александр | K3341 | Web Development Tools" class="md-nav__button md-logo" aria-label="Прель Александр | K3341 | Web Development Tools" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Прель Александр | K3341 | Web Development Tools
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Alexander-Prel/ITMO_ICT_WebDevelopment_tools_2025-2026" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Главная
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Лабораторная работа 1
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Практики 1.1-1.3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Лабораторная работа 2
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Лабораторная работа 2
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Цель и условия
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Структура решения
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Задача 1. Сумма чисел
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Задача 1. Сумма чисел">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Методика
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Результаты CPU
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Задача 2. Парсинг и сохранение в БД
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Задача 2. Парсинг и сохранение в БД">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Источники
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Три способа выполнения
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Транзакции и повторный импорт
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Запросы и ошибки
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Результаты парсинга
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Анализ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Источники
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Запуск ЛР2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2_source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Исходный код ЛР2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Установка и запуск
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Модели данных
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Подключение и миграции
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Код эндпоинтов
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Схемы API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Бизнес-логика и авторизация
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practice_source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Код практик
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Цель и условия
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Структура решения
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Задача 1. Сумма чисел
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Задача 1. Сумма чисел">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Методика
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Результаты CPU
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Задача 2. Парсинг и сохранение в БД
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Задача 2. Парсинг и сохранение в БД">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Источники
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Три способа выполнения
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Транзакции и повторный импорт
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Запросы и ошибки
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Результаты парсинга
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Анализ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Источники
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="2">Лабораторная работа 2. Потоки, процессы и асинхронность<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<p><strong>Выполнил:</strong> Прель Александр, K3341. <strong>Дата отчёта:</strong> 21 сентября 2026.</p>
+<h2 id="_1">Цель и условия<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Сравнить <code>threading</code>, <code>multiprocessing</code> и <code>asyncio</code> на вычислениях и сетевых
+запросах. Для второй задачи использовать PostgreSQL приложения для буккросинга
+из ЛР1. Основание: <a href="https://github.com/TonikX/ITMO_ICT_WebDevelopment_tools_2025-2026">репозиторий курса</a>.</p>
+<p><strong>Объём CPU-эксперимента:</strong> выполнен перебор от 1 до <code>10^10</code>.
+В задании указан <code>10^13</code>; уменьшение в 1000 раз выбрано из-за длительности
+вычислений. Подтверждения согласования с преподавателем нет. Код поддерживает
+исходный диапазон, но результат полного перебора <code>10^13</code> не заявляется.</p>
+<table>
+<thead>
+<tr>
+<th>Требование</th>
+<th>Реализация</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Три CPU-программы с <code>calculate_sum()</code></td>
+<td><code>task1/threading_sum.py</code>, <code>multiprocessing_sum.py</code>, <code>async_sum.py</code></td>
+</tr>
+<tr>
+<td>Разбиение диапазона на подзадачи</td>
+<td><code>common.split_ranges()</code>, четыре непересекающиеся части</td>
+</tr>
+<tr>
+<td>Замеры времени</td>
+<td><code>task1/benchmark.py</code>, реальный цикл для каждого подхода</td>
+</tr>
+<tr>
+<td>Три парсера с <code>parse_and_save(url)</code></td>
+<td>Три модуля <code>task2/*_parser.py</code></td>
+</tr>
+<tr>
+<td>Несколько сайтов и равные части</td>
+<td>Шесть URL с двух сайтов; три пакета по два URL</td>
+</tr>
+<tr>
+<td>Заголовки страниц и база ЛР1</td>
+<td><code>parsed_pages</code>, <code>books</code>, технический профиль в <code>users</code></td>
+</tr>
+<tr>
+<td>Асинхронные HTTP-запросы</td>
+<td><code>aiohttp.ClientSession</code></td>
+</tr>
+<tr>
+<td>Документация и сравнение</td>
+<td>Этот отчёт, таблицы и исходные JSON</td>
+</tr>
+</tbody>
+</table>
+<p>Пути указаны от <code>Lr2/lab2/</code>. <a href="../lab2_setup/">Установка и команды</a>,
+<a href="../lab2_source/">исходники ЛР2</a>, <a href="../models/">модели БД</a>, <a href="../database/">миграции</a>.</p>
+<h2 id="_2">Структура решения<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>ЛР2 находится в <code>Lr2/</code> и импортирует <code>app</code> соседней ЛР1 через <code>PYTHONPATH</code>.
+Используются её настройки, модели <code>User</code>, <code>Book</code>, <code>ParsedPage</code> и миграции Alembic.
+Запуск FastAPI для CLI-парсеров не требуется.</p>
+<p>Общие операции выделены в <code>lab2/common.py</code> (разбиение работы),
+<code>task1/common.py</code> (суммирование), <code>task2/common.py</code> (HTTP и HTML),
+<code>task2/database.py</code> (транзакционное сохранение).
+Каждая из шести программ запускается отдельно, два benchmark-модуля сравнивают
+одинаковую нагрузку. Точки входа защищены <code>if __name__ == "__main__"</code>.</p>
+<h2 id="1">Задача 1. Сумма чисел<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p><code>split_ranges(n, workers)</code> покрывает весь диапазон <code>1..n</code> без пропусков
+и пересечений. Размеры частей отличаются не более чем на единицу:
+при <code>n=10, workers=3</code> это <code>(1,4)</code>, <code>(5,7)</code>, <code>(8,10)</code>.
+При <code>n=10^10, workers=4</code> каждый исполнитель получает 2 500 000 000 чисел.
+Передаются границы, полный список чисел в памяти не создаётся.</p>
+<p><code>sum_range()</code> прибавляет числа обычным циклом <code>for</code>. Формула <code>n*(n+1)//2</code>
+используется только после остановки таймера для проверки полученного ответа.</p>
+<table>
+<thead>
+<tr>
+<th>Подход</th>
+<th>Выполнение и сбор результатов</th>
+<th>Особенность</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>threading</td>
+<td><code>Thread</code> для каждой части, запуск всех потоков, <code>join()</code>, <code>Queue</code></td>
+<td>Общая память; в CPython с GIL этот Python-цикл не исполняется одновременно на нескольких ядрах</td>
+</tr>
+<tr>
+<td>multiprocessing</td>
+<td>Контекст <code>spawn</code>, <code>Pool.starmap()</code>, суммирование частичных ответов</td>
+<td>Отдельные интерпретаторы могут работать на разных ядрах; есть затраты на запуск и передачу данных</td>
+</tr>
+<tr>
+<td>asyncio</td>
+<td>Корутина для каждой части, <code>gather()</code>, блоки по 100000 чисел, <code>await sleep(0)</code></td>
+<td>Один цикл событий; корутины уступают управление, но вычисления не становятся многоядерными</td>
+</tr>
+</tbody>
+</table>
+<p>В варианте с потоками исключения также передаются через очередь: программа
+не выдаёт неполную сумму за правильный результат. <code>spawn</code> требует защиты
+точки входа, иначе импорт модуля дочерним процессом мог бы запустить CLI повторно.</p>
+<h3 id="_3">Методика<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><code>perf_counter()</code> измеряет весь вызов <code>run()</code>: создание исполнителей,
+вычисление, объединение результатов и завершение. Подходы запускаются
+последовательно; при нескольких повторах порядок меняется.
+Для CPU выполнен один повтор каждого подхода с четырьмя исполнителями.</p>
+<p>Предыдущий опыт на <code>10^13</code> остановлен без завершённых проходов, его время
+не включено в сравнение. Опыт 10 сентября на <code>10^10</code> включал сон Mac;
+он заменён новым измерением 21 сентября. Исторические файлы сохранены локально.</p>
+<h3 id="cpu">Результаты CPU<a class="headerlink" href="#cpu" title="Permanent link">&para;</a></h3>
+<!-- current_cpu:start -->
+<p>Среда: Python 3.12.13, macOS 15.3 ARM64. Диапазон <code>1..10^10</code>,
+четыре исполнителя, один повтор. 21 сентября, 12:10:36-12:18:20 МСК.</p>
+<table>
+<thead>
+<tr>
+<th>Подход</th>
+<th style="text-align: right;">Время, с</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>threading</td>
+<td style="text-align: right;">197.382876</td>
+</tr>
+<tr>
+<td>multiprocessing</td>
+<td style="text-align: right;">68.091873</td>
+</tr>
+<tr>
+<td>asyncio</td>
+<td style="text-align: right;">197.601583</td>
+</tr>
+</tbody>
+</table>
+<p>Все три ответа: <code>50000000005000000000</code>; получены циклом и проверены формулой.</p>
+<p>Системный сон за время опыта в журнале macOS не обнаружен. Работала защита
+от автоматического сна <code>caffeinate -i</code>. Питание от батареи: 59% перед запуском,
+55% после. Календарное время 463.079 с, сумма таймеров 463.076 с.</p>
+<p>В этом проходе multiprocessing быстрее threading в 2.90 раза.
+Времена asyncio и threading практически совпали. Это согласуется с тем,
+что процессы используют несколько ядер, а корутины выполняют этот цикл
+в одном потоке. По одному проходу нельзя утверждать устойчивый коэффициент ускорения.</p>
+<p><a href="../results/cpu_n1e10_20260921_01.json">CPU JSON</a> и <a href="../results/cpu_n1e10_20260921_01_conditions.json">условия замера</a>.</p>
+<!-- current_cpu:end -->
+
+<p>JSON содержит <code>complete=true</code> только после завершения всех подходов.
+<code>full_assignment=false</code> означает, что диапазон меньше исходного задания.
+Один повтор не позволяет оценить разброс или гарантировать такое же ускорение
+на другом компьютере. Фоновая работа ОС и тепловой режим не контролировались.</p>
+<h2 id="2_1">Задача 2. Парсинг и сохранение в БД<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h2>
+<h3 id="_4">Источники<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Сайт</th>
+<th>Страницы</th>
+<th>Сохраняемые данные</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://books.toscrape.com/">Books to Scrape</a></td>
+<td>A Light in the Attic, Tipping the Velvet, Soumission</td>
+<td>HTML <code>title</code>, название книги из <code>.product_main h1</code></td>
+</tr>
+<tr>
+<td><a href="https://quotes.toscrape.com/">Quotes to Scrape</a></td>
+<td>Главная, <code>/page/2/</code>, <code>/page/3/</code></td>
+<td>HTML <code>title</code></td>
+</tr>
+</tbody>
+</table>
+<p>Шесть адресов находятся в <code>task2/urls.txt</code>; для проверки одной страницы
+используется <code>task2/one_url.txt</code>. HTML разбирает BeautifulSoup с <code>html.parser</code>.
+Автор книги отсутствует в источнике, поэтому записывается <code>Not specified by source</code>.
+Авторы цитат не считаются авторами импортированных книг.</p>
+<h3 id="_5">Три способа выполнения<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Программа</th>
+<th>Исполнители</th>
+<th>Загрузка</th>
+<th>Запись в БД</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>threading_parser.py</code></td>
+<td><code>Thread</code> на пакет, <code>Queue</code>, <code>join()</code></td>
+<td><code>requests</code></td>
+<td>Отдельная <code>Session</code> на страницу, <code>psycopg2</code></td>
+</tr>
+<tr>
+<td><code>multiprocessing_parser.py</code></td>
+<td><code>spawn</code>, <code>Pool.map(parse_batch, ...)</code></td>
+<td><code>requests</code></td>
+<td>Подключения создаются в дочерних процессах</td>
+</tr>
+<tr>
+<td><code>async_parser.py</code></td>
+<td>Корутина на пакет, <code>gather()</code></td>
+<td><code>aiohttp.ClientSession</code></td>
+<td>Отдельная <code>AsyncSession</code>, <code>asyncpg</code></td>
+</tr>
+</tbody>
+</table>
+<p>Шесть URL распределяются по трём пакетам из двух URL. Пакеты выполняются
+конкурентно, внутри пакета страницы обрабатываются последовательно.
+Порядок результатов в терминале зависит от завершения запросов.</p>
+<p>В async-варианте <code>await session.run_sync(save_record, data)</code> адаптирует
+общую ORM-логику к асинхронному драйверу через greenlet, без отдельного потока.
+Этот приём не делает произвольную блокирующую функцию асинхронной.
+Разбор HTML синхронный и на большой странице может задерживать цикл событий.</p>
+<h3 id="_6">Транзакции и повторный импорт<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><code>ParsedPage</code> хранит уникальный URL, HTML-заголовок, хост, время и необязательный
+<code>book_id</code>. <code>save_record()</code> получает транзакционную advisory-блокировку PostgreSQL
+по хешу URL и проверяет существующую запись. Исполнители не делят одну <code>Session</code>.</p>
+<p>Первый книжный URL создаёт <code>Book</code> и связывает его с источником. Пользователь
+импорта: <code>bookcrossing-parser@example.invalid</code>; пароль случайный, хранится хешем.
+При повторе обновляются заголовок и время источника; существующая книга
+не дублируется и не редактируется. <code>flush()</code> получает ID, <code>session.begin()</code>
+фиксирует транзакцию при успешном выходе и откатывает её при исключении.
+<code>ok=true</code> выводится после фиксации данных.</p>
+<p>Для цитат <code>book_id=null</code>: сохраняется заголовок страницы, но книга не создаётся.
+Парсер не добавляет <code>library_items</code> и заявки обмена: страница о книге не означает
+наличие физического экземпляра у пользователя. Шесть URL проверяют требуемую
+логику; отдельного требования массово заполнить базу в условии нет.</p>
+<h3 id="_7">Запросы и ошибки<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>Допускаются HTTP(S)-адреса без встроенных учётных данных. Требуются HTTP 200
+и непустой <code>title</code>; редиректы отключены, ответ ограничен 2000000 байт.
+TLS-проверка включена. <code>requests</code> использует таймаут соединения/чтения 20 секунд,
+<code>aiohttp</code> общий таймаут 20 секунд. При медленной передаче их поведение различается.
+Повторных попыток нет. CLI рассчитан на доверенный список URL.
+При ошибке выводится <code>ok=false</code> с описанием, команда завершается ненулевым кодом.</p>
+<h3 id="_8">Результаты парсинга<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>Среда: Python 3.12.13, macOS 15.3 ARM64, локальная PostgreSQL 16.
+Дата результата: 9 сентября 2026, 19:19:49 МСК.
+В каждом проходе 6 URL, 3 исполнителя; по 3 повтора для каждого подхода.
+Исходные данные: <a href="../results/student_io_20260909_01.json">I/O JSON</a>.</p>
+<p>Один прогревочный проход threading создаёт записи вне таймера.
+Измеренные проходы обновляют сопоставимые данные. Таймер включает запуск
+исполнителей, HTTP, разбор, сохранение, commit, вывод и завершение.
+Между проходами есть неучитываемая пауза в одну секунду. Порядок меняется
+циклически. Всего 6 прогревочных и 54 измеренных обработки URL.</p>
+<table>
+<thead>
+<tr>
+<th>Подход</th>
+<th style="text-align: right;">Повтор 1, с</th>
+<th style="text-align: right;">Повтор 2, с</th>
+<th style="text-align: right;">Повтор 3, с</th>
+<th style="text-align: right;">Медиана, с</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>threading</td>
+<td style="text-align: right;">8.979450</td>
+<td style="text-align: right;">3.797575</td>
+<td style="text-align: right;">2.748612</td>
+<td style="text-align: right;">3.797575</td>
+</tr>
+<tr>
+<td>multiprocessing</td>
+<td style="text-align: right;">6.261780</td>
+<td style="text-align: right;">3.856771</td>
+<td style="text-align: right;">8.971508</td>
+<td style="text-align: right;">6.261780</td>
+</tr>
+<tr>
+<td>asyncio</td>
+<td style="text-align: right;">3.604307</td>
+<td style="text-align: right;">3.939227</td>
+<td style="text-align: right;">2.478956</td>
+<td style="text-align: right;">3.604307</td>
+</tr>
+</tbody>
+</table>
+<p>Все 54 результата успешны. После каждого прохода шесть источников,
+три связаны с книгами. Повторяются те же ID источников и книг, что подтверждает
+отсутствие дублей. В другой базе значения ID могут отличаться.
+SQL для проверки находится в <a href="../lab2_setup/">инструкции запуска</a>.</p>
+<h2 id="_9">Анализ<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>В I/O-эксперименте минимальная медиана у asyncio: 3.604307 с.
+Разница с threading около 0.193 с, или 5.1%. Разброс повторов больше этой разницы,
+поэтому устойчивое преимущество asyncio этим опытом не доказано.</p>
+<p>Медиана multiprocessing выше. На неё могут влиять запуск процессов,
+передача результатов, сеть, удалённые серверы, БД и планировщик.
+Их вклад отдельно не измерялся, поэтому всё отставание нельзя объяснить
+только расходами на процессы.</p>
+<p>Потоки удобны для перекрытия ожиданий с синхронными библиотеками; asyncio
+требует неблокирующего I/O; процессы позволяют распараллелить Python-вычисления
+на нескольких ядрах. Способ выполнения выбирается по характеру нагрузки.
+Программы используют одинаковую полезную работу и общую логику сохранения.</p>
+<p>Для буквального выполнения CPU-условия остаётся согласовать <code>10^10</code>
+либо выполнить завершённый опыт на <code>10^13</code>.</p>
+<h2 id="_10">Источники<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.python.org/3.12/library/threading.html">Python 3.12: threading</a>.</li>
+<li><a href="https://docs.python.org/3.12/library/multiprocessing.html">Python 3.12: multiprocessing</a>.</li>
+<li><a href="https://docs.python.org/3.12/library/asyncio-task.html">Python 3.12: coroutines and tasks</a>.</li>
+<li><a href="https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html#sqlalchemy.ext.asyncio.AsyncSession.run_sync">SQLAlchemy: AsyncSession.run_sync</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

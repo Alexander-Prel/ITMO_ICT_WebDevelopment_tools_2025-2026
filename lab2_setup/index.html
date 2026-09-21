@@ -12,13 +12,13 @@
         <meta name="author" content="Прель Александр">
       
       
-        <link rel="canonical" href="https://alexander-prel.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/setup/">
+        <link rel="canonical" href="https://alexander-prel.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/lab2_setup/">
       
       
-        <link rel="prev" href="../lab2_source/">
+        <link rel="prev" href="../lab2/">
       
       
-        <link rel="next" href="../models/">
+        <link rel="next" href="../lab2_source/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Установка и запуск - Прель Александр | K3341 | Web Development Tools</title>
+        <title>Запуск ЛР2 - Прель Александр | K3341 | Web Development Tools</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-api" class="md-skip">
+        <a href="#2" class="md-skip">
           Перейти к содержанию
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Установка и запуск
+              Запуск ЛР2
             
           </span>
         </div>
@@ -309,10 +309,32 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../lab2_setup/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Запуск ЛР2
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -323,6 +345,80 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Структура
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Установка
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Задача 1: сумма
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Задача 2: парсинг
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проверка данных в PostgreSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Публикуемые материалы
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -353,32 +449,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Установка и запуск
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
         
   
   
@@ -389,62 +463,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Содержание">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Содержание
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Окружение
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      Структура
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      Практики
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      Авторизация и ограничения
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -610,7 +628,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      Окружение
+      Структура
     </span>
   </a>
   
@@ -619,7 +637,34 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      Структура
+      Установка
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Задача 1: сумма
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Задача 2: парсинг
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проверка данных в PostgreSQL
     </span>
   </a>
   
@@ -628,16 +673,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      Практики
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      Авторизация и ограничения
+      Публикуемые материалы
     </span>
   </a>
   
@@ -662,123 +698,135 @@
   
 
 
-<h1 id="1-api">ЛР1. API приложения для буккросинга<a class="headerlink" href="#1-api" title="Permanent link">&para;</a></h1>
-<p>Прель Александр, группа K3341.</p>
-<p>Профили пользователей, каталог книг и жанров, личные библиотеки, поиск чужих
-экземпляров, создание и обработка заявок на обмен. Интерфейс API: Swagger UI.</p>
-<p><a href="https://rendex85.github.io/WebDevelopmentLabsDocs/lr2/lr2/">Задание</a>
-и <a href="https://alexander-prel.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/">отчёт</a>.</p>
-<h2 id="_1">Окружение<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>Python 3.10+ (проверено на 3.12), PostgreSQL (проверено на 16), Git.
-DataGrip и PyCharm необязательны: это клиенты для работы с БД и исходниками.
-Сервер PostgreSQL устанавливается и запускается отдельно.</p>
-<p>Все следующие команды выполняются из папки <code>Lr1</code>.</p>
+<h1 id="2">Лабораторная работа 2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<p>Прель Александр, K3341. Потоки, процессы и асинхронность в Python.</p>
+<p>Исходники двух задач находятся в <code>lab2/task1/</code> и <code>lab2/task2/</code>.
+Задача 2 использует модели, настройки и PostgreSQL из соседней папки <code>Lr1/</code>.
+API и парсер разделены: запуск FastAPI для работы парсера не требуется.</p>
+<p><strong>Статус на 21 сентября 2026:</strong> обе задачи реализованы, парсинг и вычисление
+на <code>1..10^10</code> выполнены и измерены. Полный перебор <code>1..10^13</code> остановлен
+без завершённых проходов. Диапазон уменьшен в 1000 раз по решению автора.
+Согласование с преподавателем не подтверждено; выполнение исходного диапазона
+не заявляется. Фактические результаты и ограничения описаны в
+<a href="../lab2/">отчёте</a>.</p>
+<p>Новый опыт 21 сентября завершён без обнаруженных переходов в системный сон.
+Все три суммы совпали: <code>50000000005000000000</code>. Времена: threading 197.382876 с,
+multiprocessing 68.091873 с, asyncio 197.601583 с. Использован один повтор;
+разброс измерений не оценивался. Результаты и условия находятся в <code>lab2/results/</code>.</p>
+<h2 id="_1">Структура<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre><code class="language-text">Prel_Aleksandr/
+  Lr1/                   # модели app, настройки .env, миграции Alembic
+  Lr2/
+    requirements.txt
+    lab2/
+      common.py          # равномерное разбиение диапазона и списка URL
+      task1/             # три программы суммирования и benchmark
+      task2/             # три парсера, общий разбор HTML и сохранение в БД
+      results/           # реальные измерения и описание их статуса
+  reports/               # Markdown и конфигурация MkDocs
+</code></pre>
+<h2 id="_2">Установка<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Проверенная среда: Python 3.12.13, macOS 15.3 ARM64, PostgreSQL 16.
+Выполнить из папки <code>Lr2</code>:</p>
 <pre><code class="language-bash">python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
+export PYTHONPATH=&quot;../Lr1&quot;
 </code></pre>
-<p>В Windows активация: <code>.venv\Scripts\Activate.ps1</code> (PowerShell).</p>
-<p>В административном подключении <code>psql</code> создать отдельную роль и пустую БД:</p>
-<pre><code class="language-sql">CREATE ROLE bookcrossing LOGIN;
-\password bookcrossing
-CREATE DATABASE bookcrossing_db OWNER bookcrossing;
+<p>В PowerShell вместо <code>source</code> и <code>export</code> используются
+<code>.venv\Scripts\Activate.ps1</code> и <code>$env:PYTHONPATH="../Lr1"</code>.
+Переменная <code>PYTHONPATH</code> нужна для импорта <code>app</code> из ЛР1, она действует только
+в текущем терминале. В PyCharm: рабочая папка <code>Lr2</code>, интерпретатор её <code>.venv</code>,
+в переменных запуска <code>PYTHONPATH=../Lr1</code>, запуск по имени модуля, не по пути файла.</p>
+<p>Для суммирования база не нужна. Для парсинга предварительно создать PostgreSQL
+пользователя и базу по инструкции ЛР1. Если <code>Lr1/.env</code> ещё нет, создать его
+из <code>Lr1/.env.example</code>, указать свой <code>DB_URL</code> и случайный <code>SECRET_KEY</code>.
+Не заменять существующий <code>.env</code> и не публиковать пароли. Конфигурация приложения
+читает файл именно из <code>Lr1</code>, независимо от текущей рабочей папки.</p>
+<p>Затем применить миграции в уже активированном окружении:</p>
+<pre><code class="language-bash">cd ../Lr1
+python -m alembic upgrade head
+cd ../Lr2
 </code></pre>
-<p><code>\password</code> запрашивает новый пароль интерактивно. В DataGrip вместо этой
-команды пароль роли задаётся в настройках роли администратором БД.
-Создание роли и базы выполняется один раз, не при каждом запуске API.</p>
-<p>Создать локальный <code>.env</code> по <code>.env.example</code>. Указать свой пароль в <code>DB_URL</code>
-и длинный случайный <code>SECRET_KEY</code>. Ключ можно получить командой:</p>
-<pre><code class="language-bash">python -c &quot;import secrets; print(secrets.token_urlsafe(48))&quot;
+<p>По умолчанию используется схема <code>public</code>. Переменную <code>LAB2_DB_SCHEMA</code> для
+обычного запуска устанавливать не требуется. Парсер не создаёт таблицы
+самостоятельно: <code>prepare_database()</code> проверяет таблицу и создаёт технического
+импортера при его отсутствии.</p>
+<h2 id="1">Задача 1: сумма<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>Короткая проверка трёх реализаций; ожидаемый ответ каждой программы: <code>55</code>.
+Эти запуски <strong>не являются</strong> измерением полного задания:</p>
+<pre><code class="language-bash">python -m lab2.task1.threading_sum --n 10 --workers 3
+python -m lab2.task1.multiprocessing_sum --n 10 --workers 3
+python -m lab2.task1.async_sum --n 10 --workers 3
 </code></pre>
-<p>Специальные символы в пароле внутри URL необходимо URL-кодировать.
-В репозитории нет готового пароля БД или ключа подписи токенов.
-Без переменных <code>DB_URL</code> и <code>SECRET_KEY</code> приложение не запускается.</p>
-<pre><code class="language-bash">python -m alembic upgrade head
-python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+<p>Текущий эксперимент перебирает каждое число от 1 до <code>10^10</code>. Не запускать
+второй экземпляр, если первый ещё работает. Команда воспроизведения последовательно
+измеряет threading, multiprocessing и asyncio; имя результата должно быть новым:</p>
+<pre><code class="language-bash">python -u -m lab2.task1.benchmark --n 10000000000 --workers 4 --repeats 1 --allow-long-run --output lab2/results/cpu_n1e10_new.json
 </code></pre>
-<ul>
-<li>Swagger UI: <a href="http://127.0.0.1:8000/docs">http://127.0.0.1:8000/docs</a>.</li>
-<li>OpenAPI: <a href="http://127.0.0.1:8000/openapi.json">http://127.0.0.1:8000/openapi.json</a>.</li>
-<li>Остановка сервера: Ctrl+C в терминале запуска.</li>
-</ul>
-<p>Если порт занят, выбрать другой, например <code>--port 8002</code>.
-Для разработки можно добавить <code>--reload</code>.</p>
-<h2 id="_2">Структура<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Путь</th>
-<th>Назначение</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>app/main.py</code></td>
-<td>Приложение и подключение роутеров</td>
-</tr>
-<tr>
-<td><code>app/api/routes/</code></td>
-<td>HTTP-обработчики</td>
-</tr>
-<tr>
-<td><code>app/schemas/</code></td>
-<td>Входные и выходные модели Pydantic</td>
-</tr>
-<tr>
-<td><code>app/services/</code></td>
-<td>Проверки прав и бизнес-логика</td>
-</tr>
-<tr>
-<td><code>app/models.py</code></td>
-<td>Таблицы и связи SQLModel</td>
-</tr>
-<tr>
-<td><code>app/db/session.py</code></td>
-<td>Движок и сессия PostgreSQL</td>
-</tr>
-<tr>
-<td><code>app/core/</code></td>
-<td>Настройки, JWT, хеширование и время</td>
-</tr>
-<tr>
-<td><code>migrations/</code></td>
-<td>Версии схемы Alembic</td>
-</tr>
-<tr>
-<td><code>practices/</code></td>
-<td>Отдельные точки входа трёх практик</td>
-</tr>
-</tbody>
-</table>
-<p>Основная модель буккросинга состоит из шести таблиц. Дополнительная
-<code>parsed_pages</code> сохранена вместе с миграцией <code>0002</code> для совместимости истории
-схемы с развитием проекта. Парсер и задания ЛР2 в эту сдачу не входят.
-<code>alembic_version</code> является служебной таблицей Alembic.</p>
-<h2 id="_3">Практики<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>Практики 1.2 и 1.3 используют общий код предметной области из <code>app/</code> и
-фабрику <code>practices/database_app.py</code>, но отдельные схемы PostgreSQL.
-Запускать команды по одной либо в разных терминалах:</p>
-<pre><code class="language-bash">python -m uvicorn practices.practice_1_1.main:app --port 8011
-python -m uvicorn practices.practice_1_2.main:app --port 8012
-python -m uvicorn practices.practice_1_3.main:app --port 8013
+<p>Без <code>--allow-long-run</code> значения больше <code>100000000</code> отклоняются. Это защита
+от случайного запуска. По умолчанию в коде по-прежнему <code>n=10^13</code>, поэтому
+для нового опыта важно явно передавать <code>--n 10000000000</code>.
+<code>calculate_sum()</code> есть в каждом из трёх модулей. Формула суммы используется
+только для проверки результата <strong>после</strong> остановки таймера, не вместо цикла.</p>
+<p>Файл результата появляется после первого завершённого прохода. Внутри прохода
+процент и промежуточная сумма не сохраняются; продолжения с середины нет.
+Для выбранного опыта JSON содержит <code>n=10000000000</code>, <code>full_assignment=false</code>.
+Сравнивать завершённые результаты можно, когда <code>complete=true</code> и присутствуют
+все три подхода с суммой <code>50000000005000000000</code>. Это не результат для <code>10^13</code>.
+Полное условие проверяется отдельно: <code>n=10000000000000</code>, <code>full_assignment=true</code>,
+<code>complete=true</code>. Существующий файл CPU benchmark не перезаписывает: для нового
+опыта нужно новое имя. Уменьшенный диапазон не записывается в <code>cpu_full.json</code>.</p>
+<h2 id="2_1">Задача 2: парсинг<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h2>
+<p>В <code>lab2/task2/urls.txt</code> шесть адресов с двух сайтов. В <code>one_url.txt</code> один адрес
+для проверки настройки. Адреса в файлах записываются обычным текстом, по одному
+на строку, без Markdown-скобок.</p>
+<pre><code class="language-bash">python -m lab2.task2.threading_parser --urls lab2/task2/one_url.txt --workers 1
+python -m lab2.task2.threading_parser --workers 3
+python -m lab2.task2.multiprocessing_parser --workers 3
+python -m lab2.task2.async_parser --workers 3
 </code></pre>
-<p>У каждой практики Swagger находится по пути <code>/docs</code> на её порту.
-Практика 1.1 хранит данные в памяти, 1.2 создаёт таблицы через <code>create_all</code>,
-1.3 применяет миграции. Для схем 1.2 и 1.3 роль должна иметь право <code>CREATE</code>
-в базе (оно есть у владельца базы). В основном приложении схема обновляется
-только явно запущенными миграциями. <code>downgrade base</code> удаляет таблицы: не
-использовать эту команду в базе с нужными данными.</p>
-<h2 id="_4">Авторизация и ограничения<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>Регистрация и вход принимают JSON и возвращают <code>access_token</code>.
-В Swagger в поле Authorize вставляется только значение токена: префикс
-Bearer добавляется интерфейсом. При смене пользователя сначала Logout,
-затем новый токен; текущий профиль проверяется через <code>GET /users/me</code>.</p>
-<p>Принятая заявка резервирует экземпляр (<code>accepted</code> + <code>reserved</code>), но не
-переносит его к новому владельцу. Ожидающие конкурирующие заявки отклоняются.
-Физическая передача и её двустороннее подтверждение не реализованы.
-Пароли хешируются Argon2; существующие JWT не отзываются при смене пароля.
-Учебная версия не содержит отдельного фронтенда, ролей администратора,
-проверки владения email и строгой политики сложности паролей.</p>
+<p>Каждая программа печатает по JSON-строке на URL и итоговое время. <code>ok=true</code>
+означает успешную загрузку, разбор и фиксацию транзакции. <code>page_id</code> относится
+к <code>parsed_pages</code>, <code>book_id</code> к <code>books</code>; значения ID зависят от состояния базы.
+Для страниц цитат <code>book_id=null</code> допустим: у них нет карточки книги.
+Итоговый <code>successful</code> при стандартном списке должен быть <code>6</code>.</p>
+<p>Сравнение с прогревом и тремя повторами:</p>
+<pre><code class="language-bash">python -m lab2.task2.benchmark --workers 3 --repeats 3 --output lab2/results/io_new_run.json
+</code></pre>
+<p>Выбирать <strong>новое имя</strong> результата: в отличие от CPU benchmark, I/O benchmark
+перезаписывает существующий файл. Не затирать <code>student_io_20260909_01.json</code>.
+Один запуск делает 60 загрузок: 6 в прогреве и 54 в измеренных проходах.
+Порядок подходов меняется между повторами; пауза между проходами не измеряется.
+При ошибке страницы CLI возвращает ненулевой код, а benchmark не записывает
+успешный итог сравнения. Уже успешно сохранённые страницы при этом остаются в БД.</p>
+<h2 id="postgresql">Проверка данных в PostgreSQL<a class="headerlink" href="#postgresql" title="Permanent link">&para;</a></h2>
+<p>В DataGrip открыть SQL-консоль подключения к базе из <code>Lr1/.env</code> и выполнить:</p>
+<pre><code class="language-sql">SELECT p.id, p.url, p.title, p.book_id, b.title AS book_title,
+       p.fetched_at AT TIME ZONE 'Europe/Moscow' AS fetched_at_msk
+FROM public.parsed_pages AS p
+LEFT JOIN public.books AS b ON b.id = p.book_id
+WHERE p.url IN (
+  'https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html',
+  'https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html',
+  'https://books.toscrape.com/catalogue/soumission_998/index.html',
+  'https://quotes.toscrape.com/',
+  'https://quotes.toscrape.com/page/2/',
+  'https://quotes.toscrape.com/page/3/'
+)
+ORDER BY p.url;
+</code></pre>
+<p>После успешного стандартного прохода ожидаются шесть источников и три связи
+с книгами. При повторе сохраняются те же <code>page_id</code> и <code>book_id</code>, обновляются
+заголовок источника и <code>fetched_at</code>. Ранее созданная карточка книги не изменяется.
+<code>library_items</code> и заявки обмена парсер не создаёт и не редактирует.</p>
+<p>Значения времени хранятся как timezone-aware UTC; запрос явно показывает
+московское представление. SQL только читает данные, очистка рабочей базы не нужна.</p>
+<h2 id="_3">Публикуемые материалы<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Код, зависимости, URL и исходный JSON измерений находятся в <code>Lr2/</code>.
+Отчёт и приложения с кодом собираются из <code>reports/</code> через MkDocs.
+Личные инструкции, автоматические тесты, <code>.env</code>, окружение, IDE-настройки,
+журналы процессов, архивы и копии базы в сдачу не включены.</p>
 
 
 
