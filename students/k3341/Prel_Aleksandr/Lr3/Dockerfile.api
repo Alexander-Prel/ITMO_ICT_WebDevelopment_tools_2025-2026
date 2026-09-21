@@ -1,0 +1,24 @@
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app/Lr1:/app/Lr2:/app/Lr3
+WORKDIR /app
+
+# Relative requirements include the dependencies of the preceding labs.
+COPY Lr1/requirements.txt ./Lr1/requirements.txt
+COPY Lr2/requirements.txt ./Lr2/requirements.txt
+COPY Lr3/requirements.txt ./Lr3/requirements.txt
+RUN pip install --no-cache-dir -r Lr3/requirements.txt
+
+COPY Lr1/app ./Lr1/app
+COPY Lr1/migrations ./Lr1/migrations
+COPY Lr1/alembic.ini ./Lr1/alembic.ini
+COPY Lr2/lab2/__init__.py ./Lr2/lab2/__init__.py
+COPY Lr2/lab2/common.py ./Lr2/lab2/common.py
+COPY Lr2/lab2/task2 ./Lr2/lab2/task2
+COPY Lr3/lab3 ./Lr3/lab3
+
+RUN useradd --create-home appuser
+USER appuser
+WORKDIR /app/Lr1
+CMD ["uvicorn", "lab3.api:app", "--host", "0.0.0.0", "--port", "8000"]

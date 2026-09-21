@@ -1,0 +1,109 @@
+name: bookcrossing-lab3-submission
+
+x-app: &app
+  image: bookcrossing-lab3-api:submission
+  build:
+    context: ..
+    dockerfile: Lr3/Dockerfile.api
+  environment: &app-env
+    DB_URL: postgresql+psycopg2://bookcrossing:${POSTGRES_PASSWORD}@db:5432/bookcrossing_lab3
+    SECRET_KEY: ${SECRET_KEY:?}
+    PARSER_URL: http://parser:8001
+    CELERY_BROKER_URL: redis://redis:6379/0
+    CELERY_RESULT_BACKEND: redis://redis:6379/1
+    SQL_ECHO: "false"
+    TZ: Europe/Moscow
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: bookcrossing
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: bookcrossing_lab3
+      TZ: Europe/Moscow
+    command: ["postgres", "-c", "timezone=Europe/Moscow"]
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  parser:
+    image: bookcrossing-lab3-parser:submission
+    build:
+      context: ..
+      dockerfile: Lr3/Dockerfile.parser
+    ports:
+      - "127.0.0.1:${PARSER_PORT:-8004}:8001"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  # Одна миграция перед API и worker исключает гонку двух Alembic-процессов.
+  migrate:
+    <<: *app
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    <<: *app
+    ports:
+      - "127.0.0.1:${API_PORT:-8003}:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      parser:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  worker:
+    <<: *app
+    command: ["celery", "-A", "lab3.celery_app:celery_app", "worker", "--loglevel=info", "--concurrency=2", "--hostname=lab3@%h"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      parser:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A lab3.celery_app:celery_app inspect ping -d lab3@$$HOSTNAME --timeout 3 | grep -q pong"]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

@@ -56,6 +56,25 @@ def main() -> None:
             "(../reports/docs/lab2.md)", "(lab2.md)"
         ), encoding="utf-8"
     )
+    lab3 = REPORTS.parent / "Lr3"
+    sections = ["# Исходный код ЛР3\n\nПути указаны от папки `Lr3`.\n"]
+    for pattern in ("lab3/*.py", "Dockerfile.*", "docker-compose.yml", "*requirements.txt", "*.sh", ".env.example"):
+        for path in sorted(lab3.glob(pattern)):
+            if path.name == "__init__.py":
+                continue
+            language = {".py": "python", ".yml": "yaml", ".sh": "bash"}.get(path.suffix, "text")
+            sections.append(
+                f"\n## `{path.relative_to(lab3)}`\n\n```{language}\n"
+                + path.read_text(encoding="utf-8").rstrip() + "\n```\n"
+            )
+    sections.append("\n## `.dockerignore` в личной папке\n\n```text\n"
+                    + (REPORTS.parent / ".dockerignore").read_text(encoding="utf-8").rstrip() + "\n```\n")
+    (DOCS / "lab3_source.md").write_text("".join(sections), encoding="utf-8")
+    (DOCS / "lab3_setup.md").write_text(
+        (lab3 / "README.md").read_text(encoding="utf-8").replace(
+            "(../reports/docs/lab3.md)", "(lab3.md)"
+        ), encoding="utf-8"
+    )
 
 
 if __name__ == "__main__":

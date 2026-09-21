@@ -14,6 +14,10 @@ CPU-эксперимент `10^10` завершён 21 сентября без �
 Приложение реализует API; опубликованный сайт является документацией,
 а не запущенным backend-сервисом.
 
+[Лабораторная работа 3](lab3.md) добавляет Docker Compose, отдельный HTTP-парсер
+и очередь Celery + Redis. Она использует код ЛР1 и ЛР2, но отдельную базу
+в контейнере. [Команды запуска ЛР3](lab3_setup.md).
+
 - [Репозиторий курса](https://github.com/TonikX/ITMO_ICT_WebDevelopment_tools_2025-2026).
 - [Задание ЛР1](https://rendex85.github.io/WebDevelopmentLabsDocs/lr2/lr2/).
 - [Исходники ЛР1 и практик](https://github.com/Alexander-Prel/ITMO_ICT_WebDevelopment_tools_2025-2026/tree/Prel_Aleksandr-Lr1/students/k3341/Prel_Aleksandr).

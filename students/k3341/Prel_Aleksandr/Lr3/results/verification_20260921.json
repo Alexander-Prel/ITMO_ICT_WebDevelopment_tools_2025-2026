@@ -1,0 +1,67 @@
+{
+  "checked_at": "2026-09-21T11:02:10.772774+00:00",
+  "public_copy_tests": {
+    "checked_at": "2026-09-21T10:56:19.565319+00:00",
+    "result": ".............................................................            [100%]\n61 passed, 23 warnings in 0.53s"
+  },
+  "compose_config": "passed",
+  "docker_build": "passed",
+  "runtime": {
+    "checked_at": "2026-09-21T11:01:33.497593+00:00",
+    "api": {
+      "python": "3.12.14",
+      "no_env_files": true,
+      "non_root": true,
+      "imports": true
+    },
+    "parser": {
+      "no_env_files": true,
+      "no_db_credentials": true,
+      "no_sqlalchemy": true,
+      "non_root": true
+    },
+    "services": {
+      "api": {
+        "state": "running",
+        "health": "healthy",
+        "exit_code": 0
+      },
+      "db": {
+        "state": "running",
+        "health": "healthy",
+        "exit_code": 0
+      },
+      "migrate": {
+        "state": "exited",
+        "health": "",
+        "exit_code": 0
+      },
+      "parser": {
+        "state": "running",
+        "health": "healthy",
+        "exit_code": 0
+      },
+      "redis": {
+        "state": "running",
+        "health": "healthy",
+        "exit_code": 0
+      },
+      "worker": {
+        "state": "running",
+        "health": "healthy",
+        "exit_code": 0
+      }
+    },
+    "database": {
+      "timezone": "Europe/Moscow",
+      "revision": "0004_timezone_aware_dates",
+      "parsed_pages": 2,
+      "book_links": 1
+    },
+    "pip_check": "passed"
+  },
+  "http_requests": 24,
+  "smoke": "smoke_20260921.json",
+  "queue": "queue_demo_20260921.json",
+  "notes": "Validation used an isolated Compose project and ports 18003, 18004 and 15433; default ports remain 8003, 8004 and 5433."
+}

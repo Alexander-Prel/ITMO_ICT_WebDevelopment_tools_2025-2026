@@ -1,0 +1,205 @@
+{
+  "checked_at": "2026-09-21T10:58:42.162677+00:00",
+  "base_url": "http://127.0.0.1:18003",
+  "passed": true,
+  "sync": {
+    "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+    "ok": true,
+    "title": "A Light in the Attic | Books to Scrape - Sandbox",
+    "page_id": 1,
+    "book_id": 1,
+    "error": null
+  },
+  "background_book": {
+    "states_observed": [
+      "STARTED",
+      "SUCCESS"
+    ],
+    "task_id": "cea80478-7544-40c1-bfd0-70e14c2bddc5",
+    "status": "SUCCESS",
+    "result": {
+      "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+      "ok": true,
+      "title": "A Light in the Attic | Books to Scrape - Sandbox",
+      "page_id": 1,
+      "book_id": 1,
+      "error": null
+    },
+    "error": null
+  },
+  "background_quote": {
+    "states_observed": [
+      "STARTED",
+      "SUCCESS"
+    ],
+    "task_id": "8b0aec00-3952-45df-8c9b-822f3f4db9fc",
+    "status": "SUCCESS",
+    "result": {
+      "url": "https://quotes.toscrape.com/",
+      "ok": true,
+      "title": "Quotes to Scrape",
+      "page_id": 2,
+      "book_id": null,
+      "error": null
+    },
+    "error": null
+  },
+  "background_failure": {
+    "states_observed": [
+      "STARTED",
+      "FAILURE"
+    ],
+    "task_id": "94890a55-8df0-4416-b41a-cede642c842a",
+    "status": "FAILURE",
+    "result": null,
+    "error": "Parser service returned HTTP 502"
+  },
+  "deduplication": "same page_id and book_id for sync/repeat/worker",
+  "physical_items_unchanged": true,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "status_code": 200,
+      "seconds": 0.0082
+    },
+    {
+      "method": "POST",
+      "path": "/parser/parse",
+      "status_code": 401,
+      "seconds": 0.0043
+    },
+    {
+      "method": "POST",
+      "path": "/auth/register",
+      "status_code": 200,
+      "seconds": 0.0666
+    },
+    {
+      "method": "POST",
+      "path": "/parser/parse",
+      "status_code": 422,
+      "seconds": 0.0038
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/a52d0642-b535-42d4-b1c1-6387e9352262",
+      "status_code": 404,
+      "seconds": 0.0027
+    },
+    {
+      "method": "GET",
+      "path": "/library-items/",
+      "status_code": 200,
+      "seconds": 0.0021
+    },
+    {
+      "method": "POST",
+      "path": "/parser/parse",
+      "status_code": 200,
+      "seconds": 0.6867
+    },
+    {
+      "method": "POST",
+      "path": "/parser/parse",
+      "status_code": 200,
+      "seconds": 0.8173
+    },
+    {
+      "method": "POST",
+      "path": "/parser/parse/async",
+      "status_code": 202,
+      "seconds": 0.0372
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/cea80478-7544-40c1-bfd0-70e14c2bddc5",
+      "status_code": 200,
+      "seconds": 0.005
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/cea80478-7544-40c1-bfd0-70e14c2bddc5",
+      "status_code": 200,
+      "seconds": 0.0138
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/cea80478-7544-40c1-bfd0-70e14c2bddc5",
+      "status_code": 200,
+      "seconds": 0.0137
+    },
+    {
+      "method": "POST",
+      "path": "/parser/parse/async",
+      "status_code": 202,
+      "seconds": 0.0129
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/8b0aec00-3952-45df-8c9b-822f3f4db9fc",
+      "status_code": 200,
+      "seconds": 0.0077
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/8b0aec00-3952-45df-8c9b-822f3f4db9fc",
+      "status_code": 200,
+      "seconds": 0.0131
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/8b0aec00-3952-45df-8c9b-822f3f4db9fc",
+      "status_code": 200,
+      "seconds": 0.0079
+    },
+    {
+      "method": "POST",
+      "path": "/parser/parse/async",
+      "status_code": 202,
+      "seconds": 0.0068
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/94890a55-8df0-4416-b41a-cede642c842a",
+      "status_code": 200,
+      "seconds": 0.0063
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/94890a55-8df0-4416-b41a-cede642c842a",
+      "status_code": 200,
+      "seconds": 0.0118
+    },
+    {
+      "method": "GET",
+      "path": "/parser/tasks/94890a55-8df0-4416-b41a-cede642c842a",
+      "status_code": 200,
+      "seconds": 0.0158
+    },
+    {
+      "method": "POST",
+      "path": "/parser/parse",
+      "status_code": 502,
+      "seconds": 0.6085
+    },
+    {
+      "method": "GET",
+      "path": "/parser/pages",
+      "status_code": 200,
+      "seconds": 0.0112
+    },
+    {
+      "method": "GET",
+      "path": "/library-items/",
+      "status_code": 200,
+      "seconds": 0.0081
+    },
+    {
+      "method": "GET",
+      "path": "/books/",
+      "status_code": 200,
+      "seconds": 0.0121
+    }
+  ]
+}

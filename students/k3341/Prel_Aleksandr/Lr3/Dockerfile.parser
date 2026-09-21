@@ -1,0 +1,17 @@
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app/Lr2:/app/Lr3
+WORKDIR /app
+COPY Lr3/parser-requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# The HTTP parser has HTML utilities, but no database code or credentials.
+COPY Lr2/lab2/__init__.py ./Lr2/lab2/__init__.py
+COPY Lr2/lab2/task2/__init__.py ./Lr2/lab2/task2/__init__.py
+COPY Lr2/lab2/task2/common.py ./Lr2/lab2/task2/common.py
+COPY Lr3/lab3/__init__.py Lr3/lab3/config.py Lr3/lab3/schemas.py Lr3/lab3/parser_service.py ./Lr3/lab3/
+
+RUN useradd --create-home appuser
+USER appuser
+CMD ["uvicorn", "lab3.parser_service:app", "--host", "0.0.0.0", "--port", "8001"]

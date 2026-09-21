@@ -1,9 +1,9 @@
 site_name: Прель Александр | K3341 | Web Development Tools
-site_description: Буккросинг, практики 1.1-1.3 и ЛР2 о потоках, процессах и асинхронности.
+site_description: Буккросинг, практики 1.1-1.3, конкурентность Python, Docker и Celery.
 site_author: Прель Александр
 site_url: https://alexander-prel.github.io/ITMO_ICT_WebDevelopment_tools_2025-2026/
 repo_url: https://github.com/Alexander-Prel/ITMO_ICT_WebDevelopment_tools_2025-2026
-edit_uri: edit/Prel_Aleksandr-Lr2/students/k3341/Prel_Aleksandr/reports/docs/
+edit_uri: edit/Prel_Aleksandr-Lr3/students/k3341/Prel_Aleksandr/reports/docs/
 theme:
   name: material
   language: ru
@@ -14,6 +14,9 @@ nav:
   - Лабораторная работа 2: lab2.md
   - Запуск ЛР2: lab2_setup.md
   - Исходный код ЛР2: lab2_source.md
+  - Лабораторная работа 3: lab3.md
+  - Запуск ЛР3: lab3_setup.md
+  - Исходный код ЛР3: lab3_source.md
   - Установка и запуск: setup.md
   - Модели данных: models.md
   - Подключение и миграции: database.md
