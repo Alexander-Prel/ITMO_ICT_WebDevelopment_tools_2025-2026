@@ -1306,7 +1306,7 @@ x-app: &amp;app
     context: ..
     dockerfile: Lr3/Dockerfile.api
   environment: &amp;app-env
-    DB_URL: postgresql+psycopg2://bookcrossing:${POSTGRES_PASSWORD:?Run setup.sh first}@db:5432/bookcrossing_lab3
+    DB_URL: postgresql+psycopg2://bookcrossing:${POSTGRES_PASSWORD}@db:5432/bookcrossing_lab3
     SECRET_KEY: ${SECRET_KEY:?Run setup.sh first}
     PARSER_URL: http://parser:8001
     CELERY_BROKER_URL: redis://redis:6379/0
