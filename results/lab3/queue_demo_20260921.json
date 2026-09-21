@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-09-21T10:59:40.502387+00:00",
+  "passed": true,
+  "worker_stopped_before_submit": true,
+  "http_status": 202,
+  "submit_seconds": 0.0077,
+  "status_while_worker_stopped": "PENDING",
+  "books_endpoint_responded": true,
+  "states_observed": [
+    "PENDING",
+    "STARTED",
+    "SUCCESS"
+  ],
+  "after_worker_start": {
+    "task_id": "de3f63c1-ebc6-4d18-ae6f-9064399779c6",
+    "status": "SUCCESS",
+    "result": {
+      "url": "https://quotes.toscrape.com/",
+      "ok": true,
+      "title": "Quotes to Scrape",
+      "page_id": 2,
+      "book_id": null,
+      "error": null
+    },
+    "error": null
+  }
+}
