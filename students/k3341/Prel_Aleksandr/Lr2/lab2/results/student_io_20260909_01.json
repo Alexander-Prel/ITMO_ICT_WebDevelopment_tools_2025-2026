@@ -1,0 +1,542 @@
+{
+  "measured_at": "2026-09-09T16:19:49.054709+00:00",
+  "python": "3.12.13",
+  "platform": "macOS-15.3-arm64-arm-64bit",
+  "workers": 3,
+  "urls": [
+    "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+    "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+    "https://books.toscrape.com/catalogue/soumission_998/index.html",
+    "https://quotes.toscrape.com/",
+    "https://quotes.toscrape.com/page/2/",
+    "https://quotes.toscrape.com/page/3/"
+  ],
+  "repeats": 3,
+  "warmup": "One unmeasured threading pass; measured runs update existing pages",
+  "rows": [
+    {
+      "approach": "threading",
+      "median_seconds": 3.797574916970916,
+      "samples_seconds": [
+        8.979449957958423,
+        3.797574916970916,
+        2.7486121660331264
+      ]
+    },
+    {
+      "approach": "multiprocessing",
+      "median_seconds": 6.261780082946643,
+      "samples_seconds": [
+        6.261780082946643,
+        3.8567708750488237,
+        8.97150820796378
+      ]
+    },
+    {
+      "approach": "asyncio",
+      "median_seconds": 3.604307458968833,
+      "samples_seconds": [
+        3.604307458968833,
+        3.939227291964926,
+        2.4789555409224704
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "approach": "threading",
+      "repeat": 1,
+      "seconds": 8.979449957958423,
+      "outcomes": [
+        {
+          "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+          "ok": true,
+          "title": "A Light in the Attic | Books to Scrape - Sandbox",
+          "page_id": 1,
+          "book_id": 2,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/2/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 3,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/soumission_998/index.html",
+          "ok": true,
+          "title": "Soumission | Books to Scrape - Sandbox",
+          "page_id": 2,
+          "book_id": 3,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/3/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 6,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 5,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+          "ok": true,
+          "title": "Tipping the Velvet | Books to Scrape - Sandbox",
+          "page_id": 4,
+          "book_id": 4,
+          "error": null
+        }
+      ]
+    },
+    {
+      "approach": "multiprocessing",
+      "repeat": 1,
+      "seconds": 6.261780082946643,
+      "outcomes": [
+        {
+          "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+          "ok": true,
+          "title": "A Light in the Attic | Books to Scrape - Sandbox",
+          "page_id": 1,
+          "book_id": 2,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+          "ok": true,
+          "title": "Tipping the Velvet | Books to Scrape - Sandbox",
+          "page_id": 4,
+          "book_id": 4,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/soumission_998/index.html",
+          "ok": true,
+          "title": "Soumission | Books to Scrape - Sandbox",
+          "page_id": 2,
+          "book_id": 3,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 5,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/2/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 3,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/3/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 6,
+          "book_id": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "approach": "asyncio",
+      "repeat": 1,
+      "seconds": 3.604307458968833,
+      "outcomes": [
+        {
+          "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+          "ok": true,
+          "title": "A Light in the Attic | Books to Scrape - Sandbox",
+          "page_id": 1,
+          "book_id": 2,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+          "ok": true,
+          "title": "Tipping the Velvet | Books to Scrape - Sandbox",
+          "page_id": 4,
+          "book_id": 4,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/soumission_998/index.html",
+          "ok": true,
+          "title": "Soumission | Books to Scrape - Sandbox",
+          "page_id": 2,
+          "book_id": 3,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 5,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/2/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 3,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/3/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 6,
+          "book_id": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "approach": "multiprocessing",
+      "repeat": 2,
+      "seconds": 3.8567708750488237,
+      "outcomes": [
+        {
+          "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+          "ok": true,
+          "title": "A Light in the Attic | Books to Scrape - Sandbox",
+          "page_id": 1,
+          "book_id": 2,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+          "ok": true,
+          "title": "Tipping the Velvet | Books to Scrape - Sandbox",
+          "page_id": 4,
+          "book_id": 4,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/soumission_998/index.html",
+          "ok": true,
+          "title": "Soumission | Books to Scrape - Sandbox",
+          "page_id": 2,
+          "book_id": 3,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 5,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/2/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 3,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/3/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 6,
+          "book_id": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "approach": "asyncio",
+      "repeat": 2,
+      "seconds": 3.939227291964926,
+      "outcomes": [
+        {
+          "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+          "ok": true,
+          "title": "A Light in the Attic | Books to Scrape - Sandbox",
+          "page_id": 1,
+          "book_id": 2,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+          "ok": true,
+          "title": "Tipping the Velvet | Books to Scrape - Sandbox",
+          "page_id": 4,
+          "book_id": 4,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/soumission_998/index.html",
+          "ok": true,
+          "title": "Soumission | Books to Scrape - Sandbox",
+          "page_id": 2,
+          "book_id": 3,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 5,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/2/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 3,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/3/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 6,
+          "book_id": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "approach": "threading",
+      "repeat": 2,
+      "seconds": 3.797574916970916,
+      "outcomes": [
+        {
+          "url": "https://quotes.toscrape.com/page/2/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 3,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/soumission_998/index.html",
+          "ok": true,
+          "title": "Soumission | Books to Scrape - Sandbox",
+          "page_id": 2,
+          "book_id": 3,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 5,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+          "ok": true,
+          "title": "A Light in the Attic | Books to Scrape - Sandbox",
+          "page_id": 1,
+          "book_id": 2,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+          "ok": true,
+          "title": "Tipping the Velvet | Books to Scrape - Sandbox",
+          "page_id": 4,
+          "book_id": 4,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/3/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 6,
+          "book_id": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "approach": "asyncio",
+      "repeat": 3,
+      "seconds": 2.4789555409224704,
+      "outcomes": [
+        {
+          "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+          "ok": true,
+          "title": "A Light in the Attic | Books to Scrape - Sandbox",
+          "page_id": 1,
+          "book_id": 2,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+          "ok": true,
+          "title": "Tipping the Velvet | Books to Scrape - Sandbox",
+          "page_id": 4,
+          "book_id": 4,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/soumission_998/index.html",
+          "ok": true,
+          "title": "Soumission | Books to Scrape - Sandbox",
+          "page_id": 2,
+          "book_id": 3,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 5,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/2/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 3,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/3/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 6,
+          "book_id": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "approach": "threading",
+      "repeat": 3,
+      "seconds": 2.7486121660331264,
+      "outcomes": [
+        {
+          "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+          "ok": true,
+          "title": "A Light in the Attic | Books to Scrape - Sandbox",
+          "page_id": 1,
+          "book_id": 2,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/soumission_998/index.html",
+          "ok": true,
+          "title": "Soumission | Books to Scrape - Sandbox",
+          "page_id": 2,
+          "book_id": 3,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+          "ok": true,
+          "title": "Tipping the Velvet | Books to Scrape - Sandbox",
+          "page_id": 4,
+          "book_id": 4,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 5,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/2/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 3,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/3/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 6,
+          "book_id": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "approach": "multiprocessing",
+      "repeat": 3,
+      "seconds": 8.97150820796378,
+      "outcomes": [
+        {
+          "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+          "ok": true,
+          "title": "A Light in the Attic | Books to Scrape - Sandbox",
+          "page_id": 1,
+          "book_id": 2,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html",
+          "ok": true,
+          "title": "Tipping the Velvet | Books to Scrape - Sandbox",
+          "page_id": 4,
+          "book_id": 4,
+          "error": null
+        },
+        {
+          "url": "https://books.toscrape.com/catalogue/soumission_998/index.html",
+          "ok": true,
+          "title": "Soumission | Books to Scrape - Sandbox",
+          "page_id": 2,
+          "book_id": 3,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 5,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/2/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 3,
+          "book_id": null,
+          "error": null
+        },
+        {
+          "url": "https://quotes.toscrape.com/page/3/",
+          "ok": true,
+          "title": "Quotes to Scrape",
+          "page_id": 6,
+          "book_id": null,
+          "error": null
+        }
+      ]
+    }
+  ]
+}

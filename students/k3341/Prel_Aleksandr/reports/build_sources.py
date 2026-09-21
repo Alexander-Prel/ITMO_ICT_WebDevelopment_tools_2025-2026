@@ -40,6 +40,22 @@ def main() -> None:
     (DOCS / "setup.md").write_text(
         (PROJECT / "README.md").read_text(encoding="utf-8"), encoding="utf-8"
     )
+    lab2 = REPORTS.parent / "Lr2"
+    sections = ["# Исходный код ЛР2\n\nПути указаны от папки `Lr2`.\n"]
+    for pattern in ("lab2/common.py", "lab2/task1/*.py", "lab2/task2/*.py"):
+        for path in sorted(lab2.glob(pattern)):
+            if path.name == "__init__.py":
+                continue
+            sections.append(
+                f"\n## `{path.relative_to(lab2)}`\n\n```python\n"
+                + path.read_text(encoding="utf-8").rstrip() + "\n```\n"
+            )
+    (DOCS / "lab2_source.md").write_text("".join(sections), encoding="utf-8")
+    (DOCS / "lab2_setup.md").write_text(
+        (lab2 / "README.md").read_text(encoding="utf-8").replace(
+            "(../reports/docs/lab2.md)", "(lab2.md)"
+        ), encoding="utf-8"
+    )
 
 
 if __name__ == "__main__":

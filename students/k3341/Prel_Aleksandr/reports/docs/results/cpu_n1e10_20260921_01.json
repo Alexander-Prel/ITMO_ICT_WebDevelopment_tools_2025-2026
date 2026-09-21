@@ -1,0 +1,65 @@
+{
+  "started_at": "2026-09-21T09:10:36.996048+00:00",
+  "python": "3.12.13",
+  "platform": "macOS-15.3-arm64-arm-64bit",
+  "repeats": 1,
+  "n": 10000000000,
+  "full_assignment": false,
+  "complete": true,
+  "rows": [
+    {
+      "approach": "threading",
+      "method": "iterate",
+      "n": 10000000000,
+      "sum": 50000000005000000000,
+      "workers": 4,
+      "samples_seconds": [
+        197.38287566695362
+      ],
+      "median_seconds": 197.38287566695362
+    },
+    {
+      "approach": "multiprocessing",
+      "method": "iterate",
+      "n": 10000000000,
+      "sum": 50000000005000000000,
+      "workers": 4,
+      "samples_seconds": [
+        68.0918734590523
+      ],
+      "median_seconds": 68.0918734590523
+    },
+    {
+      "approach": "asyncio",
+      "method": "iterate",
+      "n": 10000000000,
+      "sum": 50000000005000000000,
+      "workers": 4,
+      "samples_seconds": [
+        197.60158295801375
+      ],
+      "median_seconds": 197.60158295801375
+    }
+  ],
+  "runs": [
+    {
+      "approach": "threading",
+      "repeat": 1,
+      "seconds": 197.38287566695362,
+      "sum": 50000000005000000000
+    },
+    {
+      "approach": "multiprocessing",
+      "repeat": 1,
+      "seconds": 68.0918734590523,
+      "sum": 50000000005000000000
+    },
+    {
+      "approach": "asyncio",
+      "repeat": 1,
+      "seconds": 197.60158295801375,
+      "sum": 50000000005000000000
+    }
+  ],
+  "measured_at": "2026-09-21T09:18:20.075371+00:00"
+}

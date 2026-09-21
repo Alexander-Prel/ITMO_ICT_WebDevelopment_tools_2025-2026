@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-09-21",
+  "experiment": "cpu_n1e10_20260921_01.json",
+  "n": 10000000000,
+  "repeats": 1,
+  "workers": 4,
+  "system_sleep_observed": false,
+  "sleep_check": "pmset log: no Sleep/Wake transitions between 12:10:36 and 12:18:21 Europe/Moscow; caffeinate idle-sleep assertion present",
+  "idle_sleep_prevention": "caffeinate -i",
+  "power_before": "Battery Power",
+  "power_after": "Battery Power",
+  "battery_percent_before": 59,
+  "battery_percent_after": 55,
+  "calendar_seconds": 463.079323,
+  "sum_of_measured_seconds": 463.07633208401967,
+  "valid_for_uninterrupted_performance_comparison": true,
+  "full_assignment": false,
+  "limitations": [
+    "Single repetition per approach; variance not measured",
+    "Documentation edited on the same computer during the run",
+    "OS background activity and thermal state not controlled",
+    "10^10 instead of the assignment's 10^13; instructor approval not confirmed"
+  ]
+}
